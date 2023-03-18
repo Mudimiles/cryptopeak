@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Mining</title>
+    <link rel="stylesheet" href="/stylesheets/user/cryptomining.css">
+</head>
+<body>
+    <%- include('../partials/userdashboardnav')%>
+
+    <div class="contentbox">
+        
+        <div id="header">
+            <div id="headerinner">
+                <span class="headerinnerspan"><i class="fa-solid fa-line-chart headericon"></i> <small>Miners</small></span>
+                <span class="headerinnerspan"><a href="/dashboard"><i class="fas fa-project-diagram headericon"></i></a></span>
+            </div>
+        </div>
+
+        <div class="flashbox">
+            <% if(success && success.length) { %>
+                   <div class="flashboxsuccess-alert">
+                       <%= success %> 
+                       <span class="flashboxsuccess-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                       
+                   </div>
+               <% } %> 
+           
+               <% if(error && error.length) { %>
+                       <div class="flashboxerror-alert">
+                           <%= error %> 
+                           <span class="flashboxerror-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                           
+                       </div>
+               <% } %> 
+               
+        </div>
+
+        <div id="depositbox">
+            <div class="depositboxinner">
+                <span>
+                    <p>Account Status:</p>
+                    <% if (user.acctstatus === 'Not Active') { %> 
+                        <small class="unverifiedstat"><%= user.acctstatus %></small>
+                    <% } else if (user.acctstatus === 'Active'){ %> 
+                        <small class="verifiedstat"><%= user.acctstatus %></small>
+                    <% } %> 
+                </span>
+                <span>
+                    <p>Available Balance:</p>
+                    <% if (user.wallet === 0) { %> 
+                        <small>$0.00</small>
+                    <% } else { %> 
+                        <small>$<%= user.wallet.toLocaleString() %></small>
+                    <% } %> 
+                </span>
+                <span>
+                    <p>Total Profits:</p>
+                    <% if (user.totalprofits === 0) { %> 
+                        <small>$0.00</small>
+                    <% } else { %> 
+                        <small>$<%= user.totalprofits.toLocaleString() %></small>
+                    <% } %> 
+                </span>
+
+                <span class="depositbtnbox">
+
+                    <a href="/dashboard/new-crypto-miner" style="text-decoration: none; text-align: center;" class="depositbtn">
+                        <i class="fa-solid fa-line-chart"></i> New Miner
+                    </a>
+
+                    <button type="button" class="btn btn-primary depositbtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="fa-solid fa-wallet"></i> Crypto Calculator
+                    </button>
+                </span>
+                
+                
+            </div>
+
+            <div class="depositboxinner2">
+                <% if (checkuserminer.investment.length === 0) { %> 
+                <span>
+                    <p>You have no active miner.</p>
+                    <img src="/img/spiner.png" class="depositboxinner2img" alt="">
+                </span>
+                <% } else if (checkuserminer.investment.length === 1) { %> 
+                <span>
+                    <p>You have 1 active miner.</p>
+                    <img src="/img/spiner.gif" class="depositboxinner2img" alt="">
+                </span>
+                <% } else { %> 
+                <span>
+                    <p>You have <%= checkuserminer.investment.length %> active miners.</p>
+                    <img src="/img/spiner.gif" class="depositboxinner2img" alt="">
+                </span>
+                <% } %>
+                
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Mining Calculator</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <%- partial('../partials/miningcal')%>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="deposithistory">
+           <div id="deposithistorybox">
+            <p>MINING HISTORY</p>
+            <div id="tablecontainer">
+                <table id="historytable">
+                    <thead>
+                        <tr>
+                          <th></th>
+                          <th>Date</th>
+                          <th>Contract Type</th>
+                          <th>Power</th>
+                          <th>Storage</th>
+                          <th>Amount</th>
+                          <th>Profits</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+          
+                      <tbody>
+                        <% if (user.investment < 1 ) { %>
+                            <td colspan="9">
+                                No mining history.
+                            </td>
+                        <% } else { %>
+                            <% for (let investment of user.investment) {%>
+                                <% if (investment.investmentType === 'Crypto Mining') {%>
+                                <tr>
+                                    <td><li></td>
+                                    <td><%= investment.investmentdate %></td>
+                                    <td><%= investment.packagetype %> </td>
+                                    <td><%= investment.power %> </td>
+                                    <td><%= investment.storage %> </td>
+                                    <td>$<%= investment.investedamount.toLocaleString() %></td>
+                                    <td>$<%= investment.investmentprofit.toLocaleString() %></td>
+                                    <td><%= investment.status %></td>
+                                    <td><a href="/dashboard/miner/<%= investment.id %>" class="btn btn-success" >View</a></td>
+                                </tr>
+                                <% } %>
+                            <% } %> 
+                        <% } %>  
+                      </tbody>
+                  </table>
+            </div>
+           </div>
+        </div>
+
+       
+    
+    </div>
+    
+
+    <script src="/script/app.js"></script>
+</body>
+</html>

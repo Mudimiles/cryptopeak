@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment</title>
+    <link rel="stylesheet" href="/stylesheets/user/investmentpackages.css">
+</head>
+<body>
+    <%- include('../partials/userdashboardnav')%>
+
+    <div class="contentbox">
+        <div id="header">
+            <div id="headerinner">
+                <span class="headerinnerspan"><i class="fa-solid fa-line-chart headericon"></i> <small>Bitcoin Mining Contracts</small></span>
+                <span class="headerinnerspan"><a href="/dashboard"><i class="fas fa-project-diagram headericon"></i></a></span>
+            </div>
+        </div>
+        <div class="flashbox">
+            <% if(success && success.length) { %>
+                   <div class="flashboxsuccess-alert">
+                       <%= success %> 
+                       <span class="flashboxsuccess-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                       
+                   </div>
+               <% } %> 
+           
+               <% if(error && error.length) { %>
+                       <div class="flashboxerror-alert">
+                           <%= error %> 
+                           <span class="flashboxerror-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                           
+                       </div>
+               <% } %> 
+               
+        </div>
+        <div id="investmentplans">
+            <div id="investmentplansbox">
+                 <div id="investmentplansbox-head">
+                     <p>Select a mining contract.</p>
+                 </div>
+
+                 <div class="planscontainer">
+                    <% for (var x = 0; x < cryptominingplans.length; x++) { %> 
+                        <div class="planboxes">
+
+                            <span>
+                                <p>Package Name:</p> 
+                                <small class="accounttype"><%= cryptominingplans[x].packagename %></small>
+                            </span>
+
+                            <span>
+                                <p>Investment Duration:</p>
+                                <small><%= cryptominingplans[x].duration %></small>
+                            </span>
+                            <span>
+                                <p>Amount:</p>
+                                <small>$ <%= cryptominingplans[x].amount.toLocaleString()  %></small>
+                            </span>
+                            <span>
+                                <p>Mining Duration:</p> 
+                                <small><%= cryptominingplans[x].duration %></small>
+                            </span>
+                            <span>
+                                <p>Mining Storage:</p>
+                                <small><%= cryptominingplans[x].storage %></small>
+                            </span>
+                            <span>
+                                <p>Mining Power:</p>
+                                <small><%= cryptominingplans[x].power %></small>
+                            </span>
+                            <span>
+                                <p>ROI:</p>
+                                <small><%= cryptominingplans[x].profitpercentage %></small>
+                            </span>
+                            <span>
+                                <p>Service Charge:</p>
+                                <small><%= cryptominingplans[x].charges %></small>
+                            </span>
+                            <span class="planboxaction">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#cryptoMedit<%= x %>">
+                                    <i class="fa-solid fa-contract"></i> Select Contract
+                                </button>
+
+                            </span>
+
+                            <div class="modal fade" id="cryptoMedit<%= x %>" tabindex="-1" aria-labelledby="cryptoMedit<%= x %>Label" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <form action="/dashboard/new-crypto-miner/<%= cryptominingplans[x].id %>" method="post" class="activateform">
+                                            <button class="btn btn-success modalbtn">Proceed to Activate</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+
+                           
+
+                        </div>
+
+                    <% } %>
+                </div>
+            </div>
+         </div>
+    
+    </div>
+    
+
+    <script src="/script/app.js"></script>
+</body>
+</html>

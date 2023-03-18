@@ -1,0 +1,549 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    /* background-color: #5e5c5c; */
+}
+
+.modal {
+    color: black !important;
+}
+
+#navbarcontainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    color: white !important;
+    /* background-color: #2b2a2a; */
+    /* background-color: var( --navbarcontainer); */
+    background-color: var( --navbarcontainer);
+    margin: 0;
+    position: fixed;
+    width: 100vw;
+    height: 80px;
+    z-index: 1000;
+}
+
+#navinner {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    flex-grow: 1;
+}
+
+.logobox {
+    width: 250px;
+}
+
+#logo {
+    width: 90px;
+    z-index: 100;
+    margin-left: 50px;
+}
+
+.profilepic {
+    width: 30px;
+    border-radius: 50%;
+    margin: 0 5px;
+}
+
+/* .profiledropdown {
+    width: max-content;
+} */
+
+.dropdownBtn {
+    background-color: transparent; 
+    border: none;
+}
+
+.dropdownBtn:hover {
+    background-color: var( --navLinksIconBgColor); 
+    
+}
+
+.dropdownMenu {
+    /* background-color: #393b47; */
+    background-color: var( --navLinksIconBgColor);
+    margin-top: 20px;
+    width: 200px;
+    color: white;
+}
+
+.dropdownMenu li {
+    margin: 4px 0;
+}
+
+.dropdown-item {
+    color: white;
+}
+
+.navcontrolbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 140px;
+}
+
+.navtoggle, .fa-telegram {
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    
+} 
+
+.navbar {
+    width: 250px;
+    /* float:right; */
+    /* display: none; */
+}
+
+.hide-navbar {
+    display: none;
+}
+
+/* .show-navbar {
+    display: block;
+} */
+
+.profilepicbox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 0.5px dotted rgb(124, 123, 123);
+}
+
+.profilepicbox img{
+    width: 100px;
+    border-radius: 50%;
+}
+
+.profilepicbox small {
+    margin: 15px 0;
+}
+
+.acctDetails {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border-bottom: 0.5px dotted rgb(124, 123, 123);
+}
+
+.acctDetails span {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8em;
+    margin: 5px;
+    padding: 0 5px;
+}
+
+.acctDetails span p {
+    margin: 0;
+}
+
+.accounttype {
+    padding: 4px 10px;
+    border-radius: 4px;
+    background-color: rgb(255, 136, 0);
+    color: white;
+}
+
+.unverifiedstat {
+    padding: 4px 10px;
+    border-radius: 4px;
+    background-color: rgb(207, 22, 8);
+    color: white;
+}
+
+.verifiedstat {
+    padding: 4px 10px;
+    border-radius: 4px;
+    background-color: rgb(7, 146, 211);
+    color: white;
+}
+
+.pendingstat {
+    padding: 4px 10px;
+    border-radius: 4px;
+    background-color: rgb(72, 155, 83);
+    color: white;
+}
+
+
+.navcontent {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    z-index: 20;
+    top: 80px;
+    /* background-color: #2b2a2a; */
+    background-color: var( --navcontentBgColor);
+    padding-top: 30px;
+    overflow: auto;
+    border-right: 4px solid rgb(26, 104, 182);
+}
+
+
+.navlinks {
+    color: var( --navLinksColor) !important;
+    text-decoration: none;
+    padding: 5px 10px;
+    width: 100%;
+    margin: 3px 0;
+    font-size: 0.8em;
+}
+
+.navlinks i {
+    margin-right: 5px;
+}
+
+.navlinks:hover {
+    /* color: white; */
+    cursor: pointer;
+    /* background-color: #202020d5; */
+    background-color: var( --navLinksHover);
+}
+
+.links-icons {
+    padding: 10px;
+    border-radius: 50%;
+    /* background-color: #383737; */
+    background-color: var( --navLinksIconBgColor);
+    font-size: 0.8em;
+    color: white !important;
+}
+
+#logoutbtn {
+    background-color: red;
+    color: white;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+}
+
+#logoutbtn:hover {
+    background-color: rgb(139, 11, 11);
+}
+
+
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+    width: 100%;
+    background-color: transparent;
+    color: var( --navLinksColor) !important;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    margin: 3px 0;
+    font-size: 0.8em;
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+.accordion i {
+    margin-right: 10px;
+}
+
+.accordionlinks {
+    color: rgb(255, 255, 255);
+    /* color: var( --navLinksColor); */
+    text-decoration: none;
+    margin: 3px 0;
+    font-size: 0.8em;
+    padding: 5px 10px;
+    width: 100%;
+}
+
+.accordionlinks i {
+    margin-right: 10px;
+}
+
+.accordionlinks:hover {
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    background-color: var( --navLinksHover);
+    /* background-color: #202020d5; */
+}
+
+  .accordion:after {
+    content: '\02C3'; /* Unicode character for "right arrowhead" sign (>) */
+    font-size: 15px;
+    color: #777;
+    float: right;
+    margin-left: 55px;
+  }
+  
+  .active:after {
+    content: "\02C5"; /* Unicode character for "down arrowhead" sign () */
+  }
+
+  
+  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+  .active, .accordion:hover {
+    color: white;
+    /* background-color: #2d3257; */
+    /* background-color: #202020d5; */
+    background-color: var( --navLinksHover);
+  }
+
+  .active {
+    border-left: 4px solid rgb(0, 0, 0);
+  }
+  
+  /* Style the accordion panel. Note: hidden by default */
+  .panel {
+    padding: 0 18px;
+    display: flex;
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    /* background-color: #3b3b3b; */
+    background-color: var( --navLinksIconBgColor);
+    margin-top: 0;
+    border-left: 4px solid rgb(0, 0, 0);
+    width: 100%;
+}
+
+  .contentbox {
+    margin-left: 250px;
+    padding-top: 80px;
+    transition: 0.5s;
+  }
+
+  .fullcontentbox {
+    margin-left: 0;
+  }
+
+
+@media (max-width:800px) {
+    .navbar {
+        display: none;
+    }
+    
+    .show-navbar {
+        display: block;
+    }
+
+    .contentbox {
+        margin-left: 0;
+    }
+}
+
+@media (max-width:640px) {
+    .profiledropdown .profilename {
+        display: none;
+    }
+}
+
+@media (max-width:540px) {
+    #navbarcontainer {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+    }
+    #navinner {
+        width: 100%;
+        margin-top: 10px;
+    }
+    #navinner .dropdown {
+        margin: 10px;
+    }
+    .contentbox {
+        padding-top: 180px !important;
+    }
+    .navcontent {
+        top: 110px;
+    }
+}
+
+@media (max-width:285px) {
+    .contentbox {
+        padding-top: 200px !important;
+    }
+    .navcontent {
+        top: 140px;
+    }
+}
+
+
+.navcontent::-webkit-scrollbar{
+    width: 10px;
+}
+
+.navcontent::-webkit-scrollbar-track {
+    -webkit-box-shadow:inset 0 0 10px rgba(0, 0, 0, 0.459)
+}
+
+.navcontent::-webkit-scrollbar-thumb {
+    -webkit-box-shadow:inset 0 0 10px rgba(0, 0, 0, 0.534)
+}
+
+
+#intro {
+    display: flex;
+    flex-direction: row;
+    font-family: 'Oswald', sans-serif;
+    color: white;
+}
+
+#introbox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px 20px;
+    width: 100%;
+    align-items: center;
+}
+
+#introbox p {
+    margin: 0;
+}
+
+.introboxinner1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.introboxinner1 i {
+    color: white;
+    background-color: dodgerblue;
+    padding: 10px;
+    border-radius: 6px;
+    margin: 0 20px;
+    font-size: 1.6em;
+}
+
+.introboxinner2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: black;
+    margin: 0 10px;
+}
+
+.introboxinner2 a {
+    color: black;
+}
+
+
+.introboxinner2 a:hover {
+    color: rgb(17, 109, 202);
+}
+
+/* #introbox span {
+    color: white;
+} */
+
+@media (max-width: 400px) {
+  
+.introboxinner2 {
+    display: none;
+}
+    
+}
+
+.flashbox {
+    width: 100%;
+    
+}
+  
+    /* The alert message box */
+  .flashboxsuccess-alert {
+      padding: 10px 30px;
+      background-color: #07bd68;
+      border: 1px solid #058046;
+      border-radius: 5px;
+      color: white;
+      margin: 20px;
+    }
+    
+    /* The close button */
+    .flashboxsuccess-closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    /* When moving the mouse over the close button */
+    .flashboxsuccess-closebtn:hover {
+      color: black;
+    }
+  
+  .flashboxerror-alert {
+      padding: 10px 30px;
+      background-color: #f44336; /* Red */
+      border: 1px solid rgb(165, 9, 9);
+      border-radius: 5px;
+      color: white;
+      margin: 15px 0;
+    }
+    
+    /* The close button */
+    .flashboxerror-closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    /* When moving the mouse over the close button */
+    .flashboxerror-closebtn:hover {
+      color: black;
+    }
+  
+  
+#header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+#headerinner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    font-family: 'Oswald', sans-serif;
+    background-color: orangered;
+    color: white;
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 6px;
+}
+
+.headericon{
+    color: white;
+}

@@ -1,0 +1,119 @@
+#storecontainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+}
+
+#innerstorecontainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px ;
+}
+
+.storeproductboxes {
+    width: 96%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 10px 0;
+    border-bottom: 1px solid grey;
+}
+
+.storeproductboxes p {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.storeproductimgbox {
+    width: 400px;
+}
+
+.storeproductcontentbox {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.productinfo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+@media (max-width: 1310px) {
+    .storeproductboxes {
+        flex-direction: column;
+        width: 98%;
+    }
+    .storeproductimgbox {
+        width: 100%;
+        margin: 5px 0;
+    }
+    .storeproductcontentbox {
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 380px) {
+    .storeproductimgbox img{
+        width: 70%;
+        height: auto;
+    }
+    .storeproductboxes {
+        flex-direction: column;
+        width: 100%;
+        padding: 10px 0;
+    }
+    #innerstorecontainer {
+        padding: 10px 0;
+    }
+}
+
+
+#storefooter {
+    width: 96%;
+}
+
+#orderform {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    border: 3px solid goldenrod;
+    padding: 10px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0 0 5px 0 rgb(0 0 0 / 20%), 0 11px 6px -7px rgb(0 0 0 / 20%);
+    box-shadow: 0 0 5px 0 rgb(0 0 0 / 20%), 0 11px 6px -7px rgb(0 0 0 / 20%);
+}
+
+.orderformgroup {
+    width: 100%;
+    padding: 5px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.orderformgroup label {
+    font-size: 0.9em;
+    border-bottom: 8px;
+}
+
+.orderforminput {
+    padding: 4px 0;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+}
+
+@media (max-width: 520px) {
+    #orderform {
+        width: 100%;
+        border-radius: 5px;
+    }
+}

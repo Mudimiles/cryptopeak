@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="/stylesheets/user/dashboard.css">
+    
+</head>
+<body>
+    <%- include('../partials/userdashboardnav')%>
+  <div class="contentbox">
+    
+
+    <!-- <div id="div1">
+        <div id="div1box">
+            <i class="fas fa-project-diagram links-icons"></i> <span>Overview</span>
+        </div>
+    </div> -->
+
+    <div id="header">
+        <div id="headerinner">
+            <span class="headerinnerspan"> <small>Overview</small></span>
+            <span class="headerinnerspan"><a href="/dashboard"><i class="fas fa-project-diagram headericon"></i></a></span>
+        </div>
+    </div>
+
+    
+
+    <div class="flashbox">
+        <% if(success && success.length) { %>
+               <div class="flashboxsuccess-alert">
+                   <%= success %> 
+                   <span class="flashboxsuccess-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                   
+               </div>
+           <% } %> 
+       
+           <% if(error && error.length) { %>
+                   <div class="flashboxerror-alert">
+                       <%= error %> 
+                       <span class="flashboxerror-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                       
+                   </div>
+           <% } %> 
+           
+    </div>
+
+    <% if (user.verificationstatus === 'Not Verified') { %> 
+
+        <div class="verificationbox">
+            <div class="innerverificationbox">
+                <span>Your account is not yet verified. Please 
+                    <button type="button" class="verifyBtn" data-bs-toggle="modal" data-bs-target="#verifymodal">
+                        Click Here!
+                    </button>
+                    to verify your account.
+                </span>
+            </div>
+        </div>
+
+         <!-- Modal -->
+         <div class="modal fade" id="verifymodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Verify Account</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Please upload a Government Licensed document to verify your account.</p>
+                        <p>Accepted documents are
+                            <ul>
+                                <li>Driver's License</li>
+                                <li>Passport </li>
+                                <li>Social Security Card</li>
+                            </ul>
+                        </p>
+                        <form action="/verify/<%= user.id %>?_method=PUT" method="post" id="div2form" enctype="multipart/form-data">
+                            <select name="documenttype" class="forminput" style="width: 100%;" required>
+                                <option value="" selected>Document Type</option>
+                                <option value="Driver's License">Driver's License</option>
+                                <option value="Passport">Passport</option>
+                                <option value="Social Security Card">Social Security Card</option>
+                            </select>
+                            <div class="input-group formdiv mt-2">
+                                <input type="file" class="form-control"  name="verificationdocument" placeholder="Select Document" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" required>
+                                <button class="btn btn-success" type="submit" id="inputGroupFileAddon04">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    <% } else if (user.verificationstatus === 'Pending') { %> 
+
+        <div class="verificationbox">
+            <div class="innerverificationbox">
+                <span>
+                    Your verification request has been submitted. <br> Please wait while we verify your document.
+                </span>
+            </div>
+        </div>
+    <% } %> 
+
+
+
+    <div id="acctsumbox">
+        <div id="btcwidget">
+            <%- include('../partials/darkbtcwidget')%>
+        </div>
+
+        <div class="dashboardboxcontainer">
+            <div class="dashboardboxes">
+                <span class="dashboardboxes-span1">
+                    <img src="/img/wallet.png" alt="" class="dashboardboxes-iconimg">
+                    <span class="dashboardboxes-span2">
+                        <p>
+                            <% if (user.wallet === 0) { %> 
+                                <small>$0.00</small>
+                            <% } else { %> 
+                                <small>$<%= user.wallet.toLocaleString() %></small>
+                            <% } %> 
+                        </p>
+                        <small>Account Balance</small>
+                    </span>
+                </span>
+                <img src="/img/graph1.png" alt="" class="dashboardbox-graphimg">
+            </div>
+            <div class="dashboardboxes">
+                <span class="dashboardboxes-span1">
+                    <img src="/img/income.png" alt="" class="dashboardboxes-iconimg">
+                    <span class="dashboardboxes-span2">
+                        <p>
+                            <% if (user.totalprofits === 0) { %> 
+                                <small>$0.00</small>
+                            <% } else { %> 
+                                <small>$<%= user.totalprofits.toLocaleString() %></small>
+                            <% } %> 
+                        </p>
+                        <small>Total Income</small>
+                    </span>
+                </span>
+                <img src="/img/graph2.png" alt="" class="dashboardbox-graphimg">
+            </div>
+            <div class="dashboardboxes">
+                <span class="dashboardboxes-span1">
+                    <img src="/img/rate.png" alt="" class="dashboardboxes-iconimg">
+                    <span class="dashboardboxes-span2">
+                        <p>
+                            <% if (user.referralincomes === 0) { %> 
+                                <small>$0.00</small>
+                            <% } else { %> 
+                                <small>$<%= user.referralincomes.toLocaleString() %></small>
+                            <% } %> 
+                        </p>
+                        <small>Referral Income</small>
+                    </span>
+                </span>
+                <img src="/img/graph3.png" alt="" class="dashboardbox-graphimg">
+            </div>
+            <div class="dashboardboxes">
+                <span class="dashboardboxes-span1">
+                    <img src="/img/NOT.png" alt="" class="dashboardboxes-iconimg">
+                    <span class="dashboardboxes-span2">
+                        <p>
+                            <small><%= user.investment.length %> </small>
+                        </p>
+                        <small>Total Miners</small>
+                    </span>
+                </span>
+                <img src="/img/graph4.png" alt="" class="dashboardbox-graphimg">
+            </div>
+        </div>
+
+     
+    </div>
+
+    <div id="activitybox">
+        <div id="inneractivitybox">
+            <div class="activitybox1">
+                <h4>Recent Activities</h4>
+                <span class="activityboxspan">
+                    <p>Last Investment:</p>
+                    <% if (lastinvestments.length === 0) { %>
+                        <small>$0.00</small>
+                    <% } else { %>
+                        <small>$<%= lastinvestments[0].investmentprofit.toLocaleString() %></small>
+                    <% } %> 
+                </span>
+                <span class="activityboxspan">
+                    <p>Last Deposit:</p>
+                    <% if (deposits.length === 0) { %>
+                        <small>$0.00</small>
+                    <% } else { %>
+                        <small>$<%= deposits[0].amount.toLocaleString() %></small>
+                    <% } %> 
+                </span>
+                <span class="activityboxspan">
+                    <p>Last Withdrawal:</p>
+                    <% if (withdrawal.length === 0) { %>
+                        <small>$0.00</small>
+                    <% } else { %>
+                        <small>$<%= withdrawal[0].amount.toLocaleString() %></small>
+                    <% } %> 
+                </span>
+                <span class="activityboxspan">
+                    <p>Number of Deposits:</p>
+                    <small><%= deposits.length %></small>
+                </span>
+                <span class="activityboxspan">
+                    <p>Number of Withdrawals:</p>
+                    <small><%= withdrawal.length %></small>
+                </span>
+            </div>
+
+            <div class="activitybox2">
+                <h4>Referrals</h4>
+                <span class="activityboxspan">
+                    <p>Number of Referrals:</p>
+                    <small><%= user.referrals.length %></small>
+                </span>
+                <span>
+                    Present our project to your friends, family, or any other community and enjoy the financial benefits. You don't even need an active deposit to receive affiliate commission.
+                </span>
+                <a href="/dashboard/referral-dashboard" class="btn btn-success mt-3">Learn more</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="statcontainer">
+        <div class="innerstatcontainer">
+            <div class="statboxes statbox1">
+                <p>Account Statistic</p>
+                <div id="demoarea-chart">
+                    <div id="demoarea-container" style="width: 100%; height: 310px; text-align: center; margin: 0px auto; padding: 0px; position: relative;">
+                        <canvas class="flot-base" width="636" height="310" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 636px; height: 310px;"></canvas>
+                        <div class="flot-text" style="position: absolute; inset: 0px; font-size: smaller; color: rgb(84, 84, 84);">
+                            <div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; inset: 0px; display: block;">
+                                <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 79px; top: 286px; left: 26px; text-align: center;">02:00</div>
+                                <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 79px; top: 286px; left: 121px; text-align: center;">02:30</div>
+                                <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 79px; top: 286px; left: 216px; text-align: center;">03:00</div>
+                                <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 79px; top: 286px; left: 310px; text-align: center;">03:30</div>
+                                <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 79px; top: 286px; left: 405px; text-align: center;">04:00</div>
+                                <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 79px; top: 286px; left: 500px; text-align: center;">04:30</div></div>
+                                <div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; inset: 0px; display: block;">
+                                    <div class="flot-tick-label tickLabel" style="position: absolute; top: 270px; left: 14px; text-align: right;">0</div>
+                                    <div class="flot-tick-label tickLabel" style="position: absolute; top: 216px; left: 8px; text-align: right;">50</div>
+                                    <div class="flot-tick-label tickLabel" style="position: absolute; top: 162px; left: 1px; text-align: right;">100</div>
+                                    <div class="flot-tick-label tickLabel" style="position: absolute; top: 108px; left: 1px; text-align: right;">150</div>
+                                    <div class="flot-tick-label tickLabel" style="position: absolute; top: 54px; left: 1px; text-align: right;">200</div>
+                                    <div class="flot-tick-label tickLabel" style="position: absolute; top: 1px; left: 1px; text-align: right;">250</div></div>
+                                    <div class="flot-y-axis flot-y2-axis yAxis y2Axis" style="position: absolute; inset: 0px; display: block;">
+                                        <div class="flot-tick-label tickLabel" style="position: absolute; top: 270px; left: 615px;">0</div>
+                                    <div class="flot-tick-label tickLabel" style="position: absolute; top: 231px; left: 615px;">100</div>
+                                    <div class="flot-tick-label tickLabel" style="position: absolute; top: 193px; left: 615px;">200</div>
+                                    <div class="flot-tick-label tickLabel" style="position: absolute; top: 154px; left: 615px;">300</div>
+                                    <div class="flot-tick-label tickLabel" style="position: absolute; top: 116px; left: 615px;">400</div>
+                                    <div class="flot-tick-label tickLabel" style="position: absolute; top: 77px; left: 615px;">500</div>
+                                    <div class="flot-tick-label tickLabel" style="position: absolute; top: 39px; left: 615px;">600</div>
+                                    <div class="flot-tick-label tickLabel" style="position: absolute; top: 1px; left: 615px;">700</div></div></div>
+                                    <canvas class="flot-overlay" width="636" height="310" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 636px; height: 310px;"></canvas>
+                                    <div class="legend">
+                                        <div style="position: absolute; width: 86px; height: 46px; top: 17px; right: 36px; background-color: rgb(255, 255, 255); opacity: 0.85;"> </div>
+                                        <table style="position:absolute;top:17px;right:36px;;font-size:smaller;color:#545454">
+                                            <tbody>
+                                                <tr><td class="legendColorBox">
+                                                <div style="border:1px solid #ccc;padding:1px">
+                                                    <div style="width:4px;height:0;border:5px solid rgb(232,150,46);overflow:hidden"></div></div></td><td class="legendLabel">This month</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(244,110,15);overflow:hidden"></div></div></td><td class="legendLabel">Total balance</td></tr></tbody></table></div></div>
+                </div>
+            </div>
+            <div class="statboxes statbox2">
+                <p>Live Crypto Prices</p>
+                <div>
+                    <script>
+                        baseUrl = "https://widgets.cryptocompare.com/";
+                        var scripts = document.getElementsByTagName("script");
+                        var embedder = scripts[scripts.length - 1];
+                        var cccTheme = {"General":{"background":"#121212","borderColor":"#000"},"Tabs":{"background":"#000","color":"#FFF","borderColor":"#333","activeBackground":"#333","activeColor":"#FFF"},"Row":{"color":"#FFF","borderColor":"#585858"},"Conversion":{"background":"#000","color":"#CCC"}};
+                        (function() {
+                            var appName = encodeURIComponent(window.location.hostname);
+                            if (appName == "") {
+                                appName = "local";
+                            }
+                            var s = document.createElement("script");
+                            s.type = "text/javascript";
+                            s.async = true;
+                            var theUrl = baseUrl + 'serve/v1/coin/multi?fsyms=BTC,ETH,XMR,LTC,XRP,NEO,DASH&tsyms=USD,EUR,CNY,GBP';
+                            s.src = theUrl + (theUrl.indexOf("?") >= 0 ? "&" : "?") + "app=" + appName;
+                            embedder.parentNode.appendChild(s);
+                        })();
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="cryptowidget">
+       <iframe id="tradingview_6922c" src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_6922c&amp;symbol=COINBASE%3ABTCUSD&amp;interval=D&amp;symboledit=1&amp;saveimage=1&amp;toolbarbg=f1f3f6&amp;hotlist=1&amp;studies=%5B%5D&amp;theme=Dark&amp;style=0&amp;timezone=Etc%2FUTC&amp;studies_overrides=%7B%7D&amp;overrides=%7B%7D&amp;enabled_features=%5B%5D&amp;disabled_features=%5B%5D&amp;locale=en&amp;utm_source=bitwalatradingoptions.com&amp;utm_medium=widget_new&amp;utm_campaign=chart&amp;utm_term=COINBASE%3ABTCUSD#%7B%22page-uri%22%3A%22bitwalatradingoptions.com%2Ftrade%2Fdashboard%22%7D" style="width: 100%; height: 100%; margin: 0 !important; padding: 0 !important;" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen=""></iframe>
+    </div>
+
+    <div class="cryptowidget">
+        <%- include('../partials/marketdatawidget')%>
+     </div>
+
+     <div class="widgetbox">
+        <div class="widgetboxinner">
+         <div style="height:560px; background-color: #1D2330; overflow:hidden; box-sizing: border-box; border: 1px solid #282E3B; border-radius: 4px; text-align: right; line-height:14px; font-size: 12px; font-feature-settings: normal; text-size-adjust: 100%; box-shadow: inset 0 -20px 0 0 #262B38;padding:1px;padding: 0px; margin: 0px; width: 100%;"><div style="height:540px; padding:0px; margin:0px; width: 100%;"><iframe src="https://widget.coinlib.io/widget?type=chart&theme=dark&coin_id=859&pref_coin_id=1505" width="100%" height="536px" scrolling="auto" marginwidth="0" marginheight="0" frameborder="0" border="0" style="border:0;margin:0;padding:0;line-height:14px;"></iframe></div><div style="color: #626B7F; line-height: 14px; font-weight: 400; font-size: 11px; box-sizing: border-box; padding: 2px 6px; width: 100%; font-family: Verdana, Tahoma, Arial, sans-serif;"><a href="https://coinlib.io" target="_blank" style="font-weight: 500; color: #626B7F; text-decoration:none; font-size:11px"></div></div>
+        </div>
+     </div>
+     
+     <div class="widgetbox">
+         <div class="widgetboxinner">
+             <div style="height:433px; background-color: #1D2330; overflow:hidden; box-sizing: border-box; border: 1px solid #282E3B; border-radius: 4px; text-align: right; line-height:14px; font-size: 12px; font-feature-settings: normal; text-size-adjust: 100%; box-shadow: inset 0 -20px 0 0 #262B38; padding: 0px; margin: 0px; width: 100%;"><div style="height:413px; padding:0px; margin:0px; width: 100%;"><iframe src="https://widget.coinlib.io/widget?type=full_v2&theme=dark&cnt=6&pref_coin_id=1505&graph=yes" width="100%" height="409px" scrolling="auto" marginwidth="0" marginheight="0" frameborder="0" border="0" style="border:0;margin:0;padding:0;"></iframe></div><div style="color: #626B7F; line-height: 14px; font-weight: 400; font-size: 11px; box-sizing: border-box; padding: 2px 6px; width: 100%; font-family: Verdana, Tahoma, Arial, sans-serif;"><a href="https://coinlib.io" target="_blank" style="font-weight: 500; color: #626B7F; text-decoration:none; font-size:11px"></div></div>
+         </div>
+      </div>
+
+    <!-- <div class="widgetbox">
+        <div class="widgetboxinner">
+         <div style="height:560px; background-color: #1D2330; overflow:hidden; box-sizing: border-box; border: 1px solid #282E3B; border-radius: 4px; text-align: right; line-height:14px; font-size: 12px; font-feature-settings: normal; text-size-adjust: 100%; box-shadow: inset 0 -20px 0 0 #262B38;padding:1px;padding: 0px; margin: 0px; width: 100%;"><div style="height:540px; padding:0px; margin:0px; width: 100%;"><iframe src="https://widget.coinlib.io/widget?type=chart&theme=dark&coin_id=859&pref_coin_id=1505" width="100%" height="536px" scrolling="auto" marginwidth="0" marginheight="0" frameborder="0" border="0" style="border:0;margin:0;padding:0;line-height:14px;"></iframe></div><div style="color: #626B7F; line-height: 14px; font-weight: 400; font-size: 11px; box-sizing: border-box; padding: 2px 6px; width: 100%; font-family: Verdana, Tahoma, Arial, sans-serif;"><a href="https://coinlib.io" target="_blank" style="font-weight: 500; color: #626B7F; text-decoration:none; font-size:11px"></div></div>
+        </div>
+     </div>
+     
+     <div class="widgetbox">
+         <div class="widgetboxinner">
+             <div style="height:433px; background-color: #1D2330; overflow:hidden; box-sizing: border-box; border: 1px solid #282E3B; border-radius: 4px; text-align: right; line-height:14px; font-size: 12px; font-feature-settings: normal; text-size-adjust: 100%; box-shadow: inset 0 -20px 0 0 #262B38; padding: 0px; margin: 0px; width: 100%;"><div style="height:413px; padding:0px; margin:0px; width: 100%;"><iframe src="https://widget.coinlib.io/widget?type=full_v2&theme=dark&cnt=6&pref_coin_id=1505&graph=yes" width="100%" height="409px" scrolling="auto" marginwidth="0" marginheight="0" frameborder="0" border="0" style="border:0;margin:0;padding:0;"></iframe></div><div style="color: #626B7F; line-height: 14px; font-weight: 400; font-size: 11px; box-sizing: border-box; padding: 2px 6px; width: 100%; font-family: Verdana, Tahoma, Arial, sans-serif;"><a href="https://coinlib.io" target="_blank" style="font-weight: 500; color: #626B7F; text-decoration:none; font-size:11px"></div></div>
+         </div>
+      </div> -->
+
+
+  </div>
+
+
+  <!-- graph start -->
+  <script>
+      window.jQuery || document.write('<script src="/assets/js/jquery-1.11.2.min.js"><\/script>');
+  </script>
+
+  <script src="/assets/plugins/flot-chart/jquery.flot.js"></script>
+  <script src="/assets/plugins/flot-chart/jquery.flot.time.js"></script>
+  <script src="/assets/js/chart-flot.js"></script>
+  <!-- graph end -->
+
+  <script src="/script/app.js"></script>
+</body>
+</html>

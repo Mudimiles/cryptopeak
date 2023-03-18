@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support</title>
+    <link rel="stylesheet" href="/stylesheets/user/affiliate.css">
+</head>
+<body>
+    <%- include('../partials/userdashboardnav')%>
+
+    <div class="contentbox">
+        <div id="header">
+            <div id="headerinner">
+                <span class="headerinnerspan"><i class="fa-solid fa-phone headericon"></i> <small>Support</small></span>
+                <span class="headerinnerspan"><a href="/dashboard"><i class="fas fa-project-diagram headericon"></i></a></span>
+            </div>
+        </div>
+
+        <div class="flashbox">
+            <% if(success && success.length) { %>
+                   <div class="flashboxsuccess-alert">
+                       <%= success %> 
+                       <span class="flashboxsuccess-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                       
+                   </div>
+               <% } %> 
+           
+               <% if(error && error.length) { %>
+                       <div class="flashboxerror-alert">
+                           <%= error %> 
+                           <span class="flashboxerror-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                           
+                       </div>
+               <% } %> 
+               
+        </div>
+
+        <div id="div2" style="margin-bottom:40px ;">
+            <div id="div2box">
+                <p>Need Help?</p>
+                <div class="div2boxinner">
+                    <span>You can reach us in any of the emails below
+                        <ul>
+                            <li>
+                                support@rarityx.io  | If you need help sorting an issue out.
+                            </li>
+                            <li>
+                                info@rarityx.io  | If you want to get any information concerning our platform.
+                            </li>
+                        </ul>
+                    <br> You can also click on any of the widget below to either reach us on whatsapp or start a livechat with one of our customer care official.
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <%- partial('./partials/whatsappwidget')%>
+        <%- partial('./partials/livechatwidget')%>
+
+       
+    
+    </div>
+    
+
+    <script src="/script/app.js"></script>
+</body>
+</html>
