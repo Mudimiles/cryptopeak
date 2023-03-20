@@ -123,6 +123,7 @@ body {
 .profilepicbox img{
     width: 100px;
     border-radius: 50%;
+    padding: 10px;
 }
 
 .profilepicbox small {

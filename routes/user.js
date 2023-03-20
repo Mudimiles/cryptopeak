@@ -123,7 +123,7 @@ router.post('/sign_up', async(req, res) => {
             await registeredUser.save();
 
             const subject = 'WELCOME To CRYPTO PEAK';
-            await welcomeMail(registeredUser.email, subject, registeredUser.username);
+            await welcomeMail(registeredUser.email, subject, registeredUser.firstname);
             req.login(registeredUser, err => {
                 if (err) return next(err);
                 req.flash('success', 'Welcome!!');

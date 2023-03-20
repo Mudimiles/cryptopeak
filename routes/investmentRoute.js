@@ -222,7 +222,7 @@ router.post('/dashboard/new-crypto-miner/:id', isLoggedIn, onlyClient, async(req
             await user.save()
             await user.updateOne({wallet: user.wallet - investment.amount}, { runValidators: true, new: true });
             const subject = 'MINER ACTIVATED';
-            await openInvestmentMail(user.email, subject, user.username, investment.packagetype, investment.investedamount);
+            await openInvestmentMail(user.email, subject, user.firstname, investment.packagetype, investment.investedamount);
             req.flash('success', 'Miner Activated')
             res.redirect(`/dashboard/miner/${investment.id}`);
     } else {
@@ -270,7 +270,7 @@ router.put('/dashboard/miner/:id/endinvestment', isLoggedIn, onlyClient, async (
     await user.updateOne({wallet: user.wallet + totalprofit}, { runValidators: true, new: true });
     await investment.updateOne({status: 'Completed'}, { runValidators: true, new: true });
     const subject = 'INVESTMENT COMPLETED';
-    await endInvestmentMail(user.email, subject, user.username, investment.packagetype, investment.investedamount, investment.investmentprofit);
+    await endInvestmentMail(user.email, subject, user.firstname, investment.packagetype, investment.investedamount, investment.investmentprofit);
     req.flash('success', `Successfully ended current investment.`)
     res.redirect(`/dashboard/miner/${investment.id}`)
 });

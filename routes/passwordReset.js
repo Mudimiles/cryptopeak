@@ -28,14 +28,14 @@ router.post("/forgot", async (req, res) => {
                     token: crypto.randomBytes(32).toString("hex"),
             }).save();
             const link = `${process.env.BASE_URL}/password-reset/${user._id}/${token.token}`;
-                            await passwordResetMail(user.email, "PASSWORD RESET", link, user.username);
+                            await passwordResetMail(user.email, "PASSWORD RESET", link, user.firstname);
 
             req.flash("success", "password reset link sent to your email account");
             res.redirect("/password-reset")
             
             } else {
                 const link = `${process.env.BASE_URL}/password-reset/${user._id}/${token.token}`;
-                            await passwordResetMail(user.email, "PASSWORD RESET", link, user.username);
+                            await passwordResetMail(user.email, "PASSWORD RESET", link, user.firstname);
 
             req.flash("success", "password reset link sent to your email account");
             res.redirect("/password-reset")

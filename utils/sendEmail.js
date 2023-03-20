@@ -1,9 +1,9 @@
 const nodemailer = require("nodemailer");
 const fs = require("fs");
 const ejs = require("ejs");
-const websiteName = 'CryptRangers'
-const websiteLink = 'cryptrangers.tk'
-const websiteSupportMail = 'support@cryptrangers.tk';
+const websiteName = 'Crypto Peak'
+const websiteLink = 'cryptopeak.ltd'
+const websiteSupportMail = 'support@cryptopeak.ltd';
 
 
 module.exports.sendEmail = async (email, subject, text) => {

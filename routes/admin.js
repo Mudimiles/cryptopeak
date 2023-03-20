@@ -293,7 +293,7 @@ router.put('/admin/admin.deposit-req/:id/verify/:depositid', isAdminLoggedIn, on
     const ref = await Users.findOne({username: client.referredby})
     await client.updateOne({wallet: client.wallet + deposit.amount}, { runValidators: true, new: true });
     const subject = 'DEPOSIT';
-    await depositMail(client.email, subject, client.username, deposit.amount);
+    await depositMail(client.email, subject, client.firstname, deposit.amount);
     if (ref) {
         const refPercent = (deposit.amount / 100) * 10;
         await ref.updateOne({referralincomes: ref.referralincomes + refPercent}, { runValidators: true, new: true });
@@ -310,7 +310,7 @@ router.put('/admin/admin.deposit-req/:id/decline/:depositid', isAdminLoggedIn, o
     const client = await Users.findById(id);
     const deposit = await Transaction.findByIdAndUpdate(depositid, {status: 'Unsuccessful'}, { runValidators: true, new: true });
     const subject = 'DEPOSIT';
-    await declinedepositMail(client.email, subject, client.username, deposit.amount);
+    await declinedepositMail(client.email, subject, client.firstname, deposit.amount);
     req.flash('success', 'Deposit Declined!')
     res.redirect('/admin/admin.deposit-req')
 });
@@ -443,7 +443,7 @@ router.put('/admin/admin.investment/:id/:investmentid/endinvestment',  isAdminLo
     await client.updateOne({wallet: client.wallet + totalprofit, totalprofits: client.totalprofits + totalprofit}, { runValidators: true, new: true });
     await investment.updateOne({status: 'Completed'}, { runValidators: true, new: true });
     const subject = 'INVESTMENT COMPLETED';
-    await endInvestmentMail(client.email, subject, client.username, investment.packagetype, investment.investedamount, investment.investmentprofit);
+    await endInvestmentMail(client.email, subject, client.firstname, investment.packagetype, investment.investedamount, investment.investmentprofit);
     req.flash('success', `Successfully ended current investment.`)
     res.redirect(`/admin/admin.investment/${client.id}/${investment.id}`)
 });

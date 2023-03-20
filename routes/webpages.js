@@ -10,6 +10,10 @@ router.get('/about', (req, res) => {
     res.render('about');
 });
 
+// router.get('/mail', (req, res) => {
+//     res.render('mail/openinvestment', {username: 'Yola', packagetype: 'Starter', investedamount: 1000});
+// });
+
 router.get('/terms', (req, res) => {
     res.render('terms');
 });
