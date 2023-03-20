@@ -104,12 +104,10 @@
         
                         <span>
                             <p>Account Status:</p>
-                            <% if (user.verificationstatus === 'Not Verified') { %> 
-                                <small class="unverifiedstat"><%= user.verificationstatus %></small>
-                            <% } else if (user.verificationstatus === 'Verified'){ %> 
-                                <small class="verifiedstat"><%= user.verificationstatus %></small>
-                            <% } else if (user.verificationstatus === 'Pending'){ %> 
-                                <small class="pendingstat"><%= user.verificationstatus %></small>
+                            <% if (user.acctstatus === 'Not Active') { %> 
+                                <small class="unverifiedstat"><%= user.acctstatus %></small>
+                            <% } else if (user.acctstatus === 'Active'){ %> 
+                                <small class="verifiedstat"><%= user.acctstatus %></small>
                             <% } %> 
                             
                         </span>

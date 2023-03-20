@@ -201,6 +201,7 @@ body {
     justify-content: space-between;
     align-items: center;
     font-size: 0.9em;
+    word-break: break-word;
 }
 
 .depositimgbox {
@@ -211,6 +212,10 @@ body {
 
 .depositimg {
     width: 150px;
+}
+
+.depositmethodimg {
+    width: 100%;
 }
 
 .depositmethodboxaction {

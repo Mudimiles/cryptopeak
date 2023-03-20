@@ -89,6 +89,10 @@ body {
     padding: 30px 20px;
 }
 
+.deposithistorybox img {
+    width: 130px;
+}
+
 .tablecontainer {
     width: 100%;
     overflow-x: auto;

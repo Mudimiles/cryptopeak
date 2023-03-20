@@ -262,7 +262,7 @@ router.get('/admin/admin.verificationrequests', isAdminLoggedIn, onlyAdmin, asyn
 
 router.put('/admin/admin.verificationrequests/:id', isAdminLoggedIn, onlyAdmin, async(req, res) => {
     const id = req.params.id; 
-    const user = await Users.findByIdAndUpdate(id, {verificationstatus: 'Verified'}, { runValidators: true, new: true });
+    const user = await Users.findByIdAndUpdate(id, {verificationstatus: 'Verified', acctstatus: 'Active'}, { runValidators: true, new: true });
     const subject = 'USER VERIFICATION';
     await acctVerifiedMail(user.email, subject, user.username);
     req.flash('success', 'Successfully Verified Client!')
