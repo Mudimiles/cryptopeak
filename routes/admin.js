@@ -125,7 +125,7 @@ router.put('/admin/:id/changepassword', isAdminLoggedIn, onlyAdmin, async(req, r
     const admin = await Users.findById(id)
     const {currentpassword, password, confirmpassword} = req.body;
 
-    const validPassword = await bcrypt.compare(currentpassword, user.password);
+    const validPassword = await bcrypt.compare(currentpassword, admin.password);
     if(validPassword) {
         if(password === confirmpassword) {
             const hashedpassword = await bcrypt.hash(password, 12);
@@ -138,11 +138,11 @@ router.put('/admin/:id/changepassword', isAdminLoggedIn, onlyAdmin, async(req, r
             })
         } else {
             req.flash('error', 'Passwords do not match.')
-            res.redirect(`/admin/admin.profile/${id}`)
+            res.redirect(`/admin.changepassword`)
         }
     } else {
         req.flash('error', 'Incorrect Password.')
-        res.redirect(`/admin/admin.profile/${id}`)
+        res.redirect(`/admin.changepassword`)
     }
 });
 

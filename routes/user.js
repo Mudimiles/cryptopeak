@@ -122,7 +122,7 @@ router.post('/sign_up', async(req, res) => {
             registeredUser.password = hashedpassword;
             await registeredUser.save();
 
-            const subject = 'WELCOME To CRYPTO PEAK';
+            const subject = 'WELCOME TO CRYPTO PEAK';
             await welcomeMail(registeredUser.email, subject, registeredUser.firstname);
             req.login(registeredUser, err => {
                 if (err) return next(err);
@@ -191,33 +191,30 @@ router.get('/dashboard/changepassword', isLoggedIn,  onlyClient, async(req, res)
     res.render('user/changepassword', {user});
 });
 
-router.put('/:id/changepassword', isLoggedIn, onlyClient, async(req, res) => {
+router.put('/user/:id/changepassword', isLoggedIn, onlyClient, async(req, res) => {
     const id = req.user.id;
     const user = await Users.findById(id)
     const {currentpassword, password, confirmpassword} = req.body;
-    if (currentpassword === user.confirmpassword) {
+
+    const validPassword = await bcrypt.compare(currentpassword, user.password);
+    if(validPassword) {
         if(password === confirmpassword) {
-            user.setPassword(password,  function(err) {
-                user.save()
+            const hashedpassword = await bcrypt.hash(password, 12);
+            await user.updateOne({password: hashedpassword, confirmpassword: confirmpassword}, { runValidators: true, new: true })
+
+            req.login(user, function(err) {
+                if (err) return next(err);
+                req.flash('success', 'Password Changed!');
+                res.redirect('/dashboard');
             })
         } else {
             req.flash('error', 'Passwords do not match.')
-            res.redirect(`/dashboard/profile/${id}`)
+            res.redirect(`/dashboard/changepassword`)
         }
     } else {
-        req.flash('error', 'Current password is incorrect.')
-        console.log(user.confirmpassword)
-        res.redirect(`/dashboard/profile/${id}`)
+        req.flash('error', 'Incorrect Password.')
+        res.redirect(`/dashboard/changepassword`)
     }
-    await user.updateOne({confirmpassword: confirmpassword}, { runValidators: true, new: true })
-    // const subject = 'PASSWORD RESET';
-    // const text = 'Password was changed successfully.'
-    // await sendEmail(user.email, subject, text);
-    req.login(user, function(err) {
-        if (err) return next(err);
-        req.flash('success', 'Password Changed!');
-        res.redirect('/dashboard');
-    })
 });
 
 router.put('/dashboard/profile/:id', isLoggedIn, onlyClient, async(req, res) => {
@@ -424,7 +421,7 @@ router.post('/sign_up/:id', async(req, res) => {
             await referral.save();
             await referedid.save()
 
-            const subject = 'WELCOME To CRYPTO PEAK';
+            const subject = 'WELCOME TO CRYPTO PEAK';
             await welcomeMail(registeredUser.email, subject, registeredUser.username);
             
             req.login(registeredUser, err => {

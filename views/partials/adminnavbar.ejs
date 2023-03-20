@@ -29,7 +29,7 @@
             
 
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle dropdownBtn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                     <% if (admin.profilepicture.length === 0) { %> 
                         <img src="/img/user.png" alt="" class="profilepic">
                     <% } else { %> 
@@ -37,7 +37,7 @@
                     <% } %> 
                     <small><%= admin.firstname %></small>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                <ul class="dropdown-menu dropdown-menu-dark dropdownMenu" aria-labelledby="dropdownMenuButton2">
                 <li><a class="dropdown-item" href="/admin/admin.profile">Profile</a></li>
                 <li><a class="dropdown-item" href="/admin/admin.changepassword">Change Password</a></li>
                 <li><a class="dropdown-item" href="/admin.logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
