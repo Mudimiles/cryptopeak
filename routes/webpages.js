@@ -49,7 +49,7 @@ router.get('/news', (req, res) => {
 });
 
 router.get('/contact_us', (req, res) => {
-    res.render('contactus');
+    res.render('contact');
 });
 
 router.post('/contactus', async (req, res)  => {

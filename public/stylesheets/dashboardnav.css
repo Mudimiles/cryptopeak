@@ -264,8 +264,8 @@ body {
 }
 
 .accordionlinks {
-    color: rgb(255, 255, 255);
-    /* color: var( --navLinksColor); */
+    /* color: rgb(255, 255, 255); */
+    color: var( --navLinksColor);
     text-decoration: none;
     margin: 3px 0;
     font-size: 0.8em;
@@ -305,9 +305,9 @@ body {
     background-color: var( --navLinksHover);
   }
 
-  .active {
+  /* .active {
     border-left: 4px solid rgb(0, 0, 0);
-  }
+  } */
   
   /* Style the accordion panel. Note: hidden by default */
   .panel {
@@ -318,9 +318,9 @@ body {
     overflow: hidden;
     transition: max-height 0.2s ease-out;
     /* background-color: #3b3b3b; */
-    background-color: var( --navLinksIconBgColor);
+    /* background-color: var( --navLinksIconBgColor); */
     margin-top: 0;
-    border-left: 4px solid rgb(0, 0, 0);
+    /* border-left: 4px solid rgb(0, 0, 0); */
     width: 100%;
 }
 
@@ -538,7 +538,8 @@ body {
     justify-content: space-between;
     width: 100%;
     font-family: 'Oswald', sans-serif;
-    background-color: orangered;
+    /* background-color: orangered; */
+    background-color: var( --headerBgColor);
     color: white;
     padding: 10px;
     margin: 20px 0;
