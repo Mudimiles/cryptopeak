@@ -383,9 +383,9 @@ router.get('/dashboard/referral-dashboard', isLoggedIn,  onlyClient, async(req, 
 router.put('/dashboard/referral-dashboard', isLoggedIn, onlyClient, async (req, res) => {
     const user = await Users.findById(req.user.id);
     if (user.referralincomes > 0 ) {
-        await user.updateOne({wallet: user.wallet + user.referralincomes, referralincomes: 0, wallet: 0,}, { runValidators: true, new: true });
+        await user.updateOne({wallet: user.wallet + user.referralincomes, referralincomes: 0}, { runValidators: true, new: true });
         req.flash('success', `Successfully transferred referral incomes to main wallet.`)
-        res.redirect(`/user/referral-dashboard`)
+        res.redirect(`/dashboard/referral-dashboard`)
     } else {
         req.flash('error', `Referral wallet is empty!`)
         res.redirect(`/dashboard/referral-dashboard`)
@@ -412,7 +412,7 @@ router.post('/sign_up/:id', async(req, res) => {
         if (confirmpassword == password) {
             const hashedpassword = await bcrypt.hash(password, 12);
             registeredUser.password = hashedpassword;
-            await registeredUser.save
+            await registeredUser.save();
 
             
             await referedid.updateOne({referralincomes: referedid.referralincomes + 50}, { runValidators: true, new: true })
@@ -420,6 +420,7 @@ router.post('/sign_up/:id', async(req, res) => {
             referedid.referrals.push(referral);
             await referral.save();
             await referedid.save()
+            console.log(registeredUser)
 
             const subject = 'WELCOME TO CRYPTO PEAK';
             await welcomeMail(registeredUser.email, subject, registeredUser.username);
