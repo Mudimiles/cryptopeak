@@ -498,7 +498,7 @@ router.delete('/admin/admin.investmentplans/:id', isAdminLoggedIn, onlyAdmin, as
     res.redirect('/admin/admin.investmentplans')
 });
 
-router.get('/admin/admin.affiliateprogram', isAdminLoggedIn, onlyAdmin, async(req, res) => {
+router.get('/admin/admin.referral-dashboard', isAdminLoggedIn, onlyAdmin, async(req, res) => {
     const id = req.user.id;
     const admin = await Users.findById(id);
     const clients = await Users.find({role: 'client' }).populate('referrals');
