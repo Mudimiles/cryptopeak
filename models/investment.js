@@ -25,7 +25,8 @@ const investmentSchema = new Schema({
     investmentprofit: Number,
     cryptocurrency: String,
     power: String,
-    storage: String
+    storage: String,
+    validateUser: {type: Schema.Types.ObjectId, ref: 'Users'},
 })
 
 

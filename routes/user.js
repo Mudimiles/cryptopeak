@@ -170,8 +170,8 @@ router.get('/password-reset', (req, res) => {
 router.get('/dashboard', isLoggedIn, onlyClient, async(req, res) => {
     const id = req.user.id;
     const user = await Users.findById(id).populate('investment');
-    const investments = await Investment.find({userId: user.id, status: 'Active'}).sort({investmentstartdate: -1});
-    const lastinvestments = await Investment.find({userId: user.id, status: 'Completed'}).sort({investmentstartdate: -1});
+    const investments = await Investment.find({validateUser: user, status: 'Active'}).sort({investmentstartdate: -1});
+    const lastinvestments = await Investment.find({validateUser: user, status: 'Completed'}).sort({investmentstartdate: -1});
     const deposits = await Transaction.find({validateUser: user, transactionType: 'Deposit'}).sort({transactiondate: -1});
     const withdrawal = await Transaction.find({validateUser: user, transactionType: 'Withdraw'}).sort({transactiondate: -1});
    console.log(lastinvestments)

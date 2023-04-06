@@ -215,7 +215,7 @@ router.post('/dashboard/new-crypto-miner/:id', isLoggedIn, onlyClient, async(req
     const dateTime = date+' '+time+ ' ' + ampm;
     const {} = req.body;
     const investment = new Investment({investedamount: investmentplan.amount, cryptocurrency: 'Bitcoin', investmentdate: dateTime, packagetype: investmentplan.packagename, amount: investmentplan.amount, duration: investmentplan.duration,
-          profitpercentage: investmentplan.profitpercentage, charges: investmentplan.charges, status: 'Active', investmentprofit: 0.00, investmentType: 'Crypto Mining', power: investmentplan.power, storage: investmentplan.storage });
+          profitpercentage: investmentplan.profitpercentage, charges: investmentplan.charges, status: 'Active', investmentprofit: 0.00, investmentType: 'Crypto Mining', power: investmentplan.power, storage: investmentplan.storage, validateUser: user });
     if (investment.amount <= user.wallet ) {
             user.investment.push(investment);
             await investment.save();
