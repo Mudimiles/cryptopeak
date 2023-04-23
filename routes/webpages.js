@@ -105,5 +105,22 @@ router.get('/store', (req, res) => {
     res.render('store');
 });
 
+router.get('/about', (req, res) => {
+    res.render('about');
+});
+
+router.get('/blog1', (req, res) => {
+    res.render('qa');
+});
+
+router.get('/blog2', (req, res) => {
+    res.render('blog2');
+});
+
+router.get('/blog3', (req, res) => {
+    res.render('blog3');
+});
+
+
 
 module.exports = router;

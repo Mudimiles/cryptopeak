@@ -80,287 +80,6 @@
     border-left: 7px solid  rgb(11, 71, 182) !important;
 }
 
-#packages {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 30px;
-    background-color: black;
-}
-
-#packagesbox1 {
-    width: 100%;
-    text-align: center;
-    font-family: 'Bakbak One', cursive;
-}
-
-#packagesbox1 p {
-    color: white;
-    font-family: 'Bakbak One', cursive;
-}
-
-#packagesbox1 h2 {
-    color: white;
-    font-family: 'Bakbak One', cursive;
-    margin-top: 20px;
-}
-
-#packagesbox2 {
-    width: 80%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.planboxes {
-    width: 290px;
-    height: 350px;
-    border: 1px solid rgb(253, 254, 255);
-    border-radius: 5px;
-    color: white;
-    padding: 10px;
-    transition: 1s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.planboxes:hover {
-    transform: scale(1.01);
-    background-color: rgb(71, 71, 71);
-    border: 1px solid rgb(71, 71, 71);
-}
-
-.planboxes:hover .price {
-    color: rgb(236, 10, 10);
-}
-
-.planboxes li {
-    color: white !important;
-}
-
-.planboxes h4 {
-    color: white;
-    font-family: 'Bakbak One', cursive;
-    padding-bottom: 10px;
-}
-.planboxes h3 {
-    color: rgb(10, 63, 236);
-    font-family: 'Bakbak One', cursive;
-    transition: 1s;
-}
-.planboxes li {
-    color: black;
-    font-family: 'Bakbak One', cursive;
-}
-
-.planlinks {
-    background-color: rgb(9, 71, 206);
-    color: white;
-    text-decoration: none;
-    padding: 8px 14px;
-    transition: 0.8s;
-    border: 4px double white;
-    font-weight: bold;
-}
-
-.planlinks:hover {
-    color: white;
-    background-color: rgb(247, 10, 10);
-    text-decoration: none;
-}
-
-@media (max-width:900px) {
-    #packagesbox2 {
-        width: 96%;
-    }
-}
-@media (max-width:650px) {
-    #packagesbox2 {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .planboxes {
-        margin-top: 10px;
-    }
-}
-
-#reviews {
-    background-color: black;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
-}
-
-#reviewsbox1 {
-    width: 100%;
-}
-
-#reviewsbox1 h3 {
-    color: rgb(18, 110, 202);
-    font-family: 'Bakbak One', cursive;
-    text-align: center;
-}
-
-#reviewsbox1 h2 {
-    color: rgb(8, 71, 133);
-    font-family: 'Bakbak One', cursive;
-    margin-left: 40px;
-    
-}
-
-#reviewsbox2 {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.testimonials {
-    width: 90%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    font-family: 'Bakbak One', cursive;
-}
-
-/* .reviewbox {
-    width: 200px;
-    background-color: white;
-    padding: 20px;
-    box-shadow: rgb(5, 119, 250) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
-    margin: 10px;
-}
-
-.reviewbox p {
-    border-bottom: 3px solid rgb(10, 111, 212);
-} */
-
-/* .testimonials div {
-    background-color: white;
-    padding: 10px ;
-    text-align: center;
-    border-radius: 10px;
-}
-
-.testimonials p {
-    color: rgb(18, 110, 202);
-    font-family: 'Bakbak One', cursive;
-} */
-
-@media (max-width:900px) {
-    #reviewsbox2 {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-}
-@media (max-width:400px) {
-    .testimonials {
-        width: 60%;
-    }
-}
-
-#certificate {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
-    background-color: rgb(187, 182, 182);
-}
-
-#certificate h2 {
-    color: rgb(8, 71, 133);
-    font-family: 'Bakbak One', cursive;
-    text-align: center;
-}
-
-#certbox {
-    width: 800px;
-}
-
-.certimgs {
-    width: 40%;
-    height: auto;
-    margin: 10px 30px;
-}
-
-@media (max-width:800px) {
-    #certbox {
-        width: 94%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-    }
-    .certimgs {
-        width: 400px;
-        height: auto;
-        margin: 10px 0 0 0;
-    }
-    
-}
-@media (max-width:420px) {
-    .certimgs {
-        width: 80%;
-    }
-    
-}
-
-#award {
-    background-color: rgb(37, 15, 66);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
-}
-
-#awardbox1 {
-    width: 100%;
-}
-
-#award h3 {
-    color: rgb(18, 110, 202);
-    font-family: 'Bakbak One', cursive;
-    margin-left: 40px;
-}
-
-#award h2 {
-    color: rgb(8, 71, 133);
-    font-family: 'Bakbak One', cursive;
-    margin-left: 40px;
-}
-
-#awardbox2 {
-    width: 80%;
-}
-
-#award img {
-    width: 100%;
-}
-
-.uk-margin-medium-top {
-    margin-top: 0 !important;
-}
-
-.skbbg {
-    background-color: rgb(97, 189, 226);
-}
-
-#footer {
-    background-color: black;
-}
-
 .flashbox {
     width: 100%;
     padding: 10px 20px;
@@ -419,4 +138,72 @@
       color: black;
     }
   
-  
+  /* #navbar-nav {
+    display: flex !important; 
+    flex-direction: row !important;
+  }
+
+  @media (max-width:990px) {
+    #navbar-nav {
+        flex-direction: column !important;
+      }
+} */
+
+.nav-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-toggler {
+    background-color: aliceblue !important;
+}
+
+#navbar {
+    background-color: transparent !important;
+    width: 100%;
+}
+
+#navbarNav {
+    width: 100%;
+}
+
+.navbar-nav {
+    width: 100%;
+    display: flex !important; 
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .navbar-nav a {
+    color: rgb(255, 174, 0);
+    font-weight: bold;
+  }
+
+  @media (max-width:990px) {
+    .navbar-nav {
+        flex-direction: column !important;
+        align-items: flex-start;
+        width: 100%;
+      }
+    #navbarNav {
+        background-color: rgb(255, 255, 255);
+        /* padding: 20px 0;
+        padding-bottom: 0; */
+    }
+    .navbar-nav a {
+        margin: 10px;
+    }
+    .navbar-nav li {
+        border-bottom: 1px solid rgb(204, 204, 204);
+        width: 100%;
+        padding: 10px 0;
+    }
+    .navbar-nav li:hover {
+        cursor: pointer;
+        background-color: rgb(247, 247, 247);
+    }
+}
+

@@ -140,6 +140,7 @@ passport.use(
 app.get('/', async(req, res) => {
     const investmentplans = await InvestmentPlans.find({});
     // const reviews = await Reviews.find({status: 'Verified'});
+  
     res.render("home", {investmentplans})
 })
 
