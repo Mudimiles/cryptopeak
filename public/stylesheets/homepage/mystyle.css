@@ -182,16 +182,30 @@
   }
 
   .navbar-nav a {
-    color: rgb(255, 174, 0);
+    color: rgb(255, 255, 255);
+  }
+  /* class="sticky-header main-bar-wraper is-fixed color-fill" */
+
+.header-style-3 .is-fixed.color-fill .main-bar {
+    background-color: rgb(23, 62, 146) !important;
+}
+
+.header-style-3 .is-fixed.color-fill .main-bar .navbar-nav a {
+    color: rgb(255, 255, 255);
   }
 
-.text-primary {
+  @media only screen and (max-width:767px) {
+    .header-style-3.topbar-transparent{
+        background-color: rgb(23, 62, 146) !important;
+    }	 
+  }
+/* .text-primary {
     color: rgb(255, 174, 0) !important;
 }
 
 .bg-primary {
     background-color: rgb(255, 174, 0) !important;
-}
+} */
 
   @media (max-width:990px) {
     .navbar-nav {
@@ -206,6 +220,7 @@
     }
     .navbar-nav a {
         margin: 10px;
+        color: rgb(0, 38, 255) !important;
     }
     .navbar-nav li {
         border-bottom: 1px solid rgb(204, 204, 204);

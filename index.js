@@ -146,6 +146,8 @@ app.get('/', async(req, res) => {
     
     try {
         request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          if (!body) return res.render("home", {investmentplans, btcprice: 0})
+
           const data = JSON.parse(body); 
           value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
 

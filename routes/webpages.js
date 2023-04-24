@@ -10,6 +10,7 @@ const request = require('request');
 router.get('/about', (req, res) => {
     try {
         request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          if (!body) return res.render("about", {btcprice: 0})
           const data = JSON.parse(body); 
           value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
 
@@ -29,6 +30,7 @@ router.get('/about', (req, res) => {
 router.get('/terms', (req, res) => {
     try {
         request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          if (!body) return res.render("terms", {btcprice: 0})
           const data = JSON.parse(body); 
           value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
 
@@ -62,6 +64,14 @@ router.get('/news', (req, res) => {
 
         try {
             request('https://blockchain.info/de/ticker', (error, response, body) => { 
+              if (!body) 
+                  return axios.request(options).then(function (response) {
+                          console.log(response);
+                          res.render('news', {newsdata: response.data, btcprice: value});
+                      }).catch(function (error) {
+                          console.error(error);
+                          res.render('news', {btcprice: value});
+                      });
               const data = JSON.parse(body); 
               value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
     
@@ -98,6 +108,7 @@ router.get('/news', (req, res) => {
 router.get('/contact_us', (req, res) => {
     try {
         request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          if (!body) return res.render("contact", {btcprice: 0})
           const data = JSON.parse(body); 
           value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
 
@@ -154,6 +165,7 @@ router.post('/contactus', async (req, res)  => {
 router.get('/faq', (req, res) => {
     try {
         request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          if (!body) return res.render("faq", {btcprice: 0})
           const data = JSON.parse(body); 
           value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
 
@@ -169,6 +181,7 @@ router.get('/faq', (req, res) => {
 router.get('/privacy_policy', (req, res) => {
     try {
         request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          if (!body) return res.render("policy", {btcprice: 0})
           const data = JSON.parse(body); 
           value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
 
@@ -184,6 +197,7 @@ router.get('/privacy_policy', (req, res) => {
 router.get('/store', (req, res) => {
     try {
         request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          if (!body) return res.render("store", {btcprice: 0})
           const data = JSON.parse(body); 
           value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
 
@@ -203,6 +217,7 @@ router.get('/store', (req, res) => {
 router.get('/blog1', (req, res) => {
     try {
         request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          if (!body) return res.render("qa", {btcprice: 0})
           const data = JSON.parse(body); 
           value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
 
@@ -218,6 +233,7 @@ router.get('/blog1', (req, res) => {
 router.get('/blog2', (req, res) => {
     try {
         request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          if (!body) return res.render("blog2", {btcprice: 0})
           const data = JSON.parse(body); 
           value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
 
@@ -233,6 +249,7 @@ router.get('/blog2', (req, res) => {
 router.get('/blog3', (req, res) => {
     try {
         request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          if (!body) return res.render("blog3", {btcprice: 0})
           const data = JSON.parse(body); 
           value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
 
