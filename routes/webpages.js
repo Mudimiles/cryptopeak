@@ -5,9 +5,21 @@ const nodemailer = require("nodemailer");
 const fs = require("fs");
 const ejs = require("ejs");
 const axios = require("axios");
+const request = require('request');
 
 router.get('/about', (req, res) => {
-    res.render('about');
+    try {
+        request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          const data = JSON.parse(body); 
+          value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
+
+          res.render("about", {btcprice: value})
+          
+          console.log(value); 
+        }); 
+  } catch (error) {
+    res.render("about", {btcprice: 0})
+  }
 });
 
 // router.get('/mail', (req, res) => {
@@ -15,7 +27,18 @@ router.get('/about', (req, res) => {
 // });
 
 router.get('/terms', (req, res) => {
-    res.render('terms');
+    try {
+        request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          const data = JSON.parse(body); 
+          value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
+
+          res.render("terms", {btcprice: value})
+          
+          console.log(value); 
+        }); 
+  } catch (error) {
+    res.render("terms", {btcprice: 0})
+  }
 });
 
 router.get('/news', (req, res) => {
@@ -37,19 +60,54 @@ router.get('/news', (req, res) => {
 
         const getnews = axios.request(options)
 
+        try {
+            request('https://blockchain.info/de/ticker', (error, response, body) => { 
+              const data = JSON.parse(body); 
+              value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
+    
+              
+                axios.request(options).then(function (response) {
+                    console.log(response);
+                    res.render('news', {newsdata: response.data, btcprice: value});
+                }).catch(function (error) {
+                    console.error(error);
+                    res.render('news', {btcprice: value});
+                });
+            }); 
+      } catch (error) {
         axios.request(options).then(function (response) {
             console.log(response);
-            res.render('news', {newsdata: response.data});
+            res.render('news', {newsdata: response.data, btcprice: value});
         }).catch(function (error) {
             console.error(error);
-            res.render('news');
+            res.render('news', {btcprice: value});
         });
+      }
+
+        // axios.request(options).then(function (response) {
+        //     console.log(response);
+        //     res.render('news', {newsdata: response.data});
+        // }).catch(function (error) {
+        //     console.error(error);
+        //     res.render('news');
+        // });
 
     // res.render('news', {newsdata: response.data});
 });
 
 router.get('/contact_us', (req, res) => {
-    res.render('contact');
+    try {
+        request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          const data = JSON.parse(body); 
+          value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
+
+          res.render("contact", {btcprice: value})
+          
+          console.log(value); 
+        }); 
+  } catch (error) {
+    res.render("contact", {btcprice: 0})
+  }
 });
 
 router.post('/contactus', async (req, res)  => {
@@ -94,31 +152,97 @@ router.post('/contactus', async (req, res)  => {
 })
 
 router.get('/faq', (req, res) => {
-    res.render('faq');
+    try {
+        request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          const data = JSON.parse(body); 
+          value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
+
+          res.render("faq", {btcprice: value})
+          
+          console.log(value); 
+        }); 
+  } catch (error) {
+    res.render("faq", {btcprice: 0})
+  }
 });
 
 router.get('/privacy_policy', (req, res) => {
-    res.render('policy');
+    try {
+        request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          const data = JSON.parse(body); 
+          value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
+
+          res.render("policy", {btcprice: value})
+          
+          console.log(value); 
+        }); 
+  } catch (error) {
+    res.render("policy", {btcprice: 0})
+  }
 });
 
 router.get('/store', (req, res) => {
-    res.render('store');
+    try {
+        request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          const data = JSON.parse(body); 
+          value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
+
+          res.render("store", {btcprice: value})
+          
+          console.log(value); 
+        }); 
+  } catch (error) {
+    res.render("store", {btcprice: 0})
+  }
 });
 
-router.get('/about', (req, res) => {
-    res.render('about');
-});
+// router.get('/about', (req, res) => {
+//     res.render('about');
+// });
 
 router.get('/blog1', (req, res) => {
-    res.render('qa');
+    try {
+        request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          const data = JSON.parse(body); 
+          value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
+
+          res.render("qa", {btcprice: value})
+          
+          console.log(value); 
+        }); 
+  } catch (error) {
+    res.render("qa", {btcprice: 0})
+  }
 });
 
 router.get('/blog2', (req, res) => {
-    res.render('blog2');
+    try {
+        request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          const data = JSON.parse(body); 
+          value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
+
+          res.render("blog2", {btcprice: value})
+          
+          console.log(value); 
+        }); 
+  } catch (error) {
+    res.render("blog2", {btcprice: 0})
+  }
 });
 
 router.get('/blog3', (req, res) => {
-    res.render('blog3');
+    try {
+        request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          const data = JSON.parse(body); 
+          value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
+
+          res.render("blog3", {btcprice: value})
+          
+          console.log(value); 
+        }); 
+  } catch (error) {
+    res.render("blog3", {btcprice: 0})
+  }
 });
 
 

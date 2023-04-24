@@ -29,6 +29,7 @@ const dbUrl = process.env.DB_URL;
 const bcrypt = require('bcrypt');
 const methodOverride = require('method-override');
 const MongoStore = require('connect-mongo');
+const request = require('request');
 
 
 // mongodb database setup starts
@@ -140,8 +141,24 @@ passport.use(
 app.get('/', async(req, res) => {
     const investmentplans = await InvestmentPlans.find({});
     // const reviews = await Reviews.find({status: 'Verified'});
+
   
-    res.render("home", {investmentplans})
+    
+    try {
+        request('https://blockchain.info/de/ticker', (error, response, body) => { 
+          const data = JSON.parse(body); 
+          value = (parseInt(data.USD.buy, 10) + parseInt(data.USD.sell, 10)) / 2; 
+
+          res.render("home", {investmentplans, btcprice: value})
+          
+          console.log(value); 
+        }); 
+  } catch (error) {
+    res.render("home", {investmentplans, btcprice: 0})
+  }
+    
+  
+    // res.render("home", {investmentplans})
 })
 
 // app.get('/home', async(req, res) => {

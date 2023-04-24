@@ -156,8 +156,12 @@
     justify-content: space-between;
 }
 
-.navbar-toggler {
+/* .navbar-toggler {
     background-color: aliceblue !important;
+} */
+
+.fa-bars {
+    color: rgb(255, 255, 255);
 }
 
 #navbar {
@@ -179,8 +183,15 @@
 
   .navbar-nav a {
     color: rgb(255, 174, 0);
-    font-weight: bold;
   }
+
+.text-primary {
+    color: rgb(255, 174, 0) !important;
+}
+
+.bg-primary {
+    background-color: rgb(255, 174, 0) !important;
+}
 
   @media (max-width:990px) {
     .navbar-nav {
@@ -207,3 +218,9 @@
     }
 }
 
+@media (max-width:400px) {
+    .topnav {
+        display: flex;
+        flex-direction: column;
+    }
+}
