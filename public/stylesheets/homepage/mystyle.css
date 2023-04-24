@@ -218,9 +218,9 @@
     }
 }
 
-@media (max-width:400px) {
+@media (max-width:550px) {
     .topnav {
-        display: flex;
-        flex-direction: column;
+        display: flex !important;
+        flex-direction: column !important;
     }
 }
