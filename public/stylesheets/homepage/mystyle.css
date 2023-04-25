@@ -149,6 +149,11 @@
       }
 } */
 
+#navbox {
+    background-color: rgb(23, 62, 146) !important;
+    height: 200px;
+}
+
 .nav-container {
     display: flex;
     flex-direction: row;
@@ -183,6 +188,8 @@
 
   .navbar-nav a {
     color: rgb(255, 255, 255);
+    width: 100%;
+    display: inline-block;
   }
   /* class="sticky-header main-bar-wraper is-fixed color-fill" */
 
@@ -219,13 +226,13 @@
         padding-bottom: 0; */
     }
     .navbar-nav a {
-        margin: 10px;
+        margin-left: 10px;
         color: rgb(0, 38, 255) !important;
     }
     .navbar-nav li {
         border-bottom: 1px solid rgb(204, 204, 204);
         width: 100%;
-        padding: 10px 0;
+        padding: 10px 5px;
     }
     .navbar-nav li:hover {
         cursor: pointer;
