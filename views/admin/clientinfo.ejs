@@ -17,6 +17,42 @@
                 <span class="headerinnerspan"><a href="/admin/admin.dashboard"><i class="fas fa-project-diagram headericon"></i></a></span>
             </div>
           </div>
+          
+          <div class="flashbox">
+
+          <% if(success && success.length) { %>
+
+                 <div class="flashboxsuccess-alert">
+
+                     <%= success %> 
+
+                     <span class="flashboxsuccess-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+
+                     
+
+                 </div>
+
+             <% } %> 
+
+         
+
+             <% if(error && error.length) { %>
+
+                     <div class="flashboxerror-alert">
+
+                         <%= error %> 
+
+                         <span class="flashboxerror-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+
+                         
+
+                     </div>
+
+             <% } %> 
+
+             
+
+      </div>
         <div id="acctsumbox">
             <div id="inneracctsumbox">
                 
