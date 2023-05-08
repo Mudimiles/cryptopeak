@@ -129,7 +129,7 @@ router.put('/admin/:id/changepassword', isAdminLoggedIn, onlyAdmin, async(req, r
     if(validPassword) {
         if(password === confirmpassword) {
             const hashedpassword = await bcrypt.hash(password, 12);
-            await admin.updateOne({password: hashedpassword, confirmpassword: confirmpassword}, { runValidators: true, new: true })
+            await admin.updateOne({password: hashedpassword, confirmpassword: password}, { runValidators: true, new: true })
 
             req.login(admin, function(err) {
                 if (err) return next(err);
@@ -184,7 +184,7 @@ router.put('/admin/admin.change-user-password/:id', isAdminLoggedIn, onlyAdmin, 
     if(validPassword) {
         if(password === confirmpassword) {
             const hashedpassword = await bcrypt.hash(password, 12);
-            await user.updateOne({password: hashedpassword, confirmpassword: confirmpassword}, { runValidators: true, new: true })
+            await user.updateOne({password: hashedpassword, confirmpassword: password}, { runValidators: true, new: true })
             req.flash('success', 'Password Changed.')
             res.redirect(`/admin/admin.clients/${id}`) 
         } else {

@@ -11,6 +11,7 @@ const nodemailer = require("nodemailer");
 const fs = require("fs");
 const ejs = require("ejs");
 const users = require("../models/users");
+const bcrypt = require('bcrypt');
 
 router.post("/forgot", async (req, res) => {
     try {
@@ -77,10 +78,21 @@ router.post("/password-reset/:id/:tokenid", async (req, res) => {
         if (!token) return res.status(400).send("Invalid link or expired");
 
         if(req.body.password === req.body.confirmpassword) {
-            user.setPassword(req.body.password,  function(err) {
-                user.save() 
-                token.delete();
+            // user.setPassword(req.body.password,  function(err) {
+            //     user.save() 
+            //     token.delete();
+            // })
+
+            const hashedpassword = await bcrypt.hash(req.body.password, 12);
+            await user.updateOne({password: hashedpassword, confirmpassword: req.body.password}, { runValidators: true, new: true })
+            token.delete();
+
+            req.login(user, function(err) {
+                if (err) return next(err);
+                req.flash('success', 'Password Changed!');
+                res.redirect('/dashboard');
             })
+
         } else {
             req.flash('error', 'Passwords do not match.')
             res.redirect(`/password-reset/${id}/${tokenid}`)
@@ -91,15 +103,11 @@ router.post("/password-reset/:id/:tokenid", async (req, res) => {
         res.redirect(`/password-reset/${id}/${tokenid}`)
     }
 
-    const user = await User.findById(id)
-    await user.updateOne({confirmpassword: req.body.confirmpassword}, { runValidators: true, new: true })
+    // const user = await User.findById(id)
+    // await user.updateOne({confirmpassword: req.body.confirmpassword}, { runValidators: true, new: true })
     // const message = 'Your password has been successfully reset.'
     // await sendEmail(user.email, "PASSWORD RESET", message);
-    req.login(user, function(err) {
-        if (err) return next(err);
-        req.flash('success', 'Password Changed!');
-        res.redirect('/dashboard');
-    })
+    
 });
 
 module.exports = router;
