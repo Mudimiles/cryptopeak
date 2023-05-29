@@ -84,10 +84,17 @@ const paidUpgradeFee = async(req, res, next) => {
 const validateWithdrawal = async(req, res, next) => {
     const id = req.user.id;
     const user = await Users.findById(id).populate('investment');
-    if (user.investment.length === 0) {
-        req.flash('error', 'Sorry! You need to have atleast activated 1 mining contract before you can withdraw.')
+    const activeInvestment = await Investment.find({validateUser: user, status: 'Active'});
+    const completedInvestment = await Investment.find({validateUser: user, status: 'Completed'});
+    if (completedInvestment.length === 0) {
+        req.flash('error', 'Sorry! You need to have complete atleast 1 mining contract before you can be eligible to withdraw.')
         return res.redirect('/dashboard/crypto-mining')
-    } 
+    } else if (activeInvestment.length > 0) {
+        req.flash('error', 'Please wait till your current mining contract is completed before you request a withdrawal.')
+        return res.redirect('/dashboard/crypto-mining')
+    }
+    console.log('active' + activeInvestment.length)
+    console.log('complete' + completedInvestment.length)
     next();
 }
 
@@ -170,8 +177,8 @@ router.get('/password-reset', (req, res) => {
 router.get('/dashboard', isLoggedIn, onlyClient, async(req, res) => {
     const id = req.user.id;
     const user = await Users.findById(id).populate('investment');
-    const investments = await Investment.find({validateUser: user, status: 'Active'}).sort({investmentstartdate: -1});
-    const lastinvestments = await Investment.find({validateUser: user, status: 'Completed'}).sort({investmentstartdate: -1});
+    const investments = await Investment.find({validateUser: user, status: 'Active'}).sort({investmentdate: -1});
+    const lastinvestments = await Investment.find({validateUser: user, status: 'Completed'}).sort({investmentdate: -1});
     const deposits = await Transaction.find({validateUser: user, transactionType: 'Deposit'}).sort({transactiondate: -1});
     const withdrawal = await Transaction.find({validateUser: user, transactionType: 'Withdraw'}).sort({transactiondate: -1});
    console.log(lastinvestments)

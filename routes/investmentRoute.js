@@ -78,11 +78,17 @@ const paidUpgradeFee = async(req, res, next) => {
 
 const validateWithdrawal = async(req, res, next) => {
     const id = req.user.id;
-    const user = await Users.findById(id).populate('investment');
-    if (user.investment.length === 0) {
-        req.flash('error', 'You need to make a minimum of 1 investment to be qualified for withdrawals!')
+    const user = await Users.findById(id);
+    const activeInvestment = await Investment.find({validateUser: user, status: 'Active'});
+    const completedInvestment = await Investment.find({validateUser: user, status: 'Completed'});
+    if (completedInvestment.length === 0) {
+        req.flash('error', 'Sorry! You need to have complete atleast 1 mining contract before you can be eligible to withdraw.')
         return res.redirect('/dashboard/crypto-mining')
-    } 
+    }
+    if (activeInvestment.length > 0) {
+        req.flash('error', 'Please wait till your current mining contract is completed before you request a withdrawal.')
+        return res.redirect('/dashboard/crypto-mining')
+    }
     next();
 }
 //End of Middlewares//

@@ -46,14 +46,22 @@
         
         <div id="div2">
             <div id="div2box">
-                <span>You are currently using a Lite Account. An upgrade to Pro Account would give you more benefits like increase in profits by 10% and decrease of service charges by 8%.</span>
+                <% if (user.accountType === 'Pro' ) { %>
+                    <span>You are currently using a Pro Account, which is the highest level of account.</span>
                 
-                <span><u>NOTE:</u>
-                    The account upgrade fee would be billed to you by your account manager. This payment includes trading tax paid to the Market Makers according to the IRS Section 988 rules.
-                </span>
+                   
+
+                <% } else if (user.accountType === 'Lite' ) {%>
+                    <span>You are currently using a Lite Account. An upgrade to Pro Account would give you more benefits like increase in profits by 10% and decrease of service charges by 8%.</span>
+                
+                    <span><u>NOTE:</u>
+                        The account upgrade fee would be billed to you by your account manager. This payment includes trading tax paid to the Market Makers according to the IRS Section 988 rules.
+                    </span>
+                <% } %>
+                
             </div>
         </div>
-
+        <% if (user.accountType !== 'Pro' ) { %>
         <div id="div3">
             <div id="div3box">
                 <p>Pay Account Upgrade Fee</p>
@@ -92,6 +100,7 @@
                 </div>
             </div>
         </div>
+        <% } %>
 
         <div id="deposithistory">
          <div id="deposithistorybox">
