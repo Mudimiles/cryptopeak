@@ -57,9 +57,17 @@
                 </span>
 
                 <span class="depositbtnbox">
-                    <button type="button" class="btn btn-primary depositbtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <% if (user.upgradefeeStatus === 'Unpaid') { %> 
+                                <button type="button" class="btn btn-primary depositbtn">
+
                         <i class="fa-solid fa-wallet"></i> Withdraw
                     </button>
+                            <% } else if (user.upgradefeeStatus === 'Paid'){ %> 
+                                <button type="button" class="btn btn-primary depositbtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="fa-solid fa-wallet"></i> Withdraw
+                    </button>
+                      <% } %> 
+                    
                 </span>
                 
                 
