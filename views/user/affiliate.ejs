@@ -38,12 +38,13 @@
                
         </div>
 
-        <div class="acctsumcontainer">
-            <div class="inneracctsumcontainer">
-                <div class="acctsumboxes">
-                    <span class="acctsumboxes-span1">
-                        <img src="/img/wallet.png" alt="" class="acctsumboxes-iconimg">
-                        <span class="acctsumboxes-span2">
+        <div id="acctsumbox">
+
+            <div class="dashboardboxcontainer">
+                <div class="dashboardboxes" style="background-color:#08c265;">
+                    <span class="dashboardboxes-span1">
+                        <i class="fas fa-wallet dashboardboxes-iconimg"></i>
+                        <span class="dashboardboxes-span2">
                             <p>
                                 <% if (user.wallet === 0) { %> 
                                     <small>$0.00</small>
@@ -54,79 +55,60 @@
                             <small>Account Balance</small>
                         </span>
                     </span>
-                    <img src="/img/graph1.png" alt="" class="acctsum-graphimg">
                 </div>
-                <div class="acctsumboxes">
-                    <span class="acctsumboxes-span1">
-                        <img src="/img/income.png" alt="" class="acctsumboxes-iconimg">
-                        <span class="acctsumboxes-span2">
-                            <% if (user.referralincomes === 0) { %> 
-                                <small>$0.00</small>
-                            <% } else { %> 
-                                <small> $<%= user.referralincomes.toLocaleString() %></small>
-                            <% } %> 
-                            <small>Referral Earnings</small>
+                
+                <div class="dashboardboxes" style="background-color:#2980b9;">
+                    <span class="dashboardboxes-span1">
+                        <i class="fas fa-chart-line dashboardboxes-iconimg"></i>
+                        <span class="dashboardboxes-span2">
+                            <p>
+                                <% if (user.referralincomes === 0) { %> 
+                                    <small>$0.00</small>
+                                <% } else { %> 
+                                    <small>$<%= user.referralincomes.toLocaleString() %></small>
+                                <% } %> 
+                            </p>
+                            <small>Referral Income</small>
                         </span>
                     </span>
-                    <img src="/img/graph2.png" alt="" class="acctsum-graphimg">
                 </div>
-                <div class="acctsumboxes">
-                    <span class="acctsumboxes-span1">
-                        <img src="/img/rate.png" alt="" class="acctsumboxes-iconimg">
-                        <span class="acctsumboxes-span2">
-                          
-                                <small><%= user.referrals.length %></small>
-                          
+
+                <div class="dashboardboxes" style="background-color:#e5240e;">
+                    <span class="dashboardboxes-span1">
+                        <i class="fas fa-users dashboardboxes-iconimg"></i>
+                        <span class="dashboardboxes-span2">
+                            <p><small><%= user.referrals.length %></small></p>
                             <small>Number of Referrals</small>
                         </span>
                     </span>
-                    <img src="/img/graph3.png" alt="" class="acctsum-graphimg">
                 </div>
-                <div class="acctsumboxes">
-                    <span class="acctsumboxes-span1">
-                        <img src="/img/NOT.png" alt="" class="acctsumboxes-iconimg">
+
+                <button class="dashboardboxes transferbtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                     Transfer Incomes to Wallet 
+               </button>
+
+               <!-- Modal -->
+               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <% if (user.referralincomes === 0) { %> 
+                            <small>No balance available for payout.</small>
+                        <% } else { %> 
+                            <small>$<%= user.referralincomes.toLocaleString() %> is available for payout
+                                <br>Clicking continue would tranfer your total referral earnings to your main account's wallet from which 
+                                you can withdraw it.
+                            </small>
+
+                            <form action="/dashboard/referral-dashboard?_method=PUT" class="refboxclasses" method="post" >
+                                <button class="btn btn-success mt-3">Continue</button>
+                            </form>
+                        <% } %> 
                         
-                        <span class="acctsumboxes-span2">
-                            <% if (user.referralincomes === 0) { %> 
-                                <small>$0.00</small>
-                            <% } else { %> 
-                                <small> $<%= user.referralincomes.toLocaleString() %></small>
-                            <% } %> 
-                            <small>Amount Withdrawable</small>
-                            <!-- <small>Number of Trades</small> -->
-                            <!-- Button trigger modal -->
-                            
-                            
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <% if (user.referralincomes === 0) { %> 
-                                            <small>No balance available for payout.</small>
-                                        <% } else { %> 
-                                            <small>$<%= user.referralincomes.toLocaleString() %> is available for payout
-                                                <br>Clicking continue would tranfer your total referral earnings to your main account's wallet from which 
-                                                you can withdraw it.
-                                            </small>
-
-                                            <form action="/dashboard/referral-dashboard?_method=PUT" class="refboxclasses" method="post" >
-                                                <button class="btn btn-success mt-3">Continue</button>
-                                            </form>
-                                        <% } %> 
-                                        
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        </span>
-                    </span>
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Transfer Incomes to Wallet
-                   </button>
-                   <!-- <img src="/img/graph4.png" alt="" class="acctsum-graphimg"> -->
-
+                    </div>
                 </div>
+                </div>
+            </div>
             </div>
         </div>
 

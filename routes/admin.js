@@ -215,6 +215,50 @@ router.delete('/admin/admin.delete-user/:id', isAdminLoggedIn, onlyAdmin, async 
     // await Notification.findByIdAndDelete(nid);
 });
 
+router.put('/admin/admin.clients/:id/enable-withdrawal', isAdminLoggedIn, onlyAdmin, async(req, res) => {
+    const id = req.params.id;
+    const user = await Users.findById(id)
+    await user.updateOne({allowWithdrawal: 'Yes'}, { runValidators: true, new: true });
+    req.flash('success', 'Withdrawal Enabled.')
+    res.redirect(`/admin/admin.clients/${id}`)
+});
+
+router.put('/admin/admin.clients/:id/disable-withdrawal', isAdminLoggedIn, onlyAdmin, async(req, res) => {
+    const id = req.params.id;
+    const user = await Users.findById(id)
+    await user.updateOne({allowWithdrawal: 'No'}, { runValidators: true, new: true });
+    req.flash('success', 'Withdrawal Disabled.')
+    res.redirect(`/admin/admin.clients/${id}`)
+});
+
+router.put('/admin/admin.clients/:id/suspend-acct', isAdminLoggedIn, onlyAdmin, async(req, res) => {
+    const id = req.params.id;
+    const user = await Users.findById(id)
+    await user.updateOne({acctstatus: 'Suspended'}, { runValidators: true, new: true });
+    req.flash('success', 'Account Suspended.')
+    res.redirect(`/admin/admin.clients/${id}`)
+});
+
+router.put('/admin/admin.clients/:id/account-type', isAdminLoggedIn, onlyAdmin, async(req, res) => {
+    const id = req.params.id;
+    const user = await Users.findById(id)
+    const {accountType} = req.body;
+
+    const update = { ...req.body };
+
+    await user.updateOne(update, { runValidators: true, new: true });
+    req.flash('success', 'Account Type Updated.')
+    res.redirect(`/admin/admin.clients/${id}`)
+});
+
+router.put('/admin/admin.clients/:id/activate-acct', isAdminLoggedIn, onlyAdmin, async(req, res) => {
+    const id = req.params.id;
+    const user = await Users.findById(id)
+    await user.updateOne({acctstatus: 'Active'}, { runValidators: true, new: true });
+    req.flash('success', 'Account Activated.')
+    res.redirect(`/admin/admin.clients/${id}`)
+});
+
 router.post('/admin/admin.notifications/:id', isAdminLoggedIn, onlyAdmin, async(req, res) => {
     const id  = req.params.id;
     const client = await Users.findById(id);
@@ -244,14 +288,15 @@ router.delete('/admin/client/:id/notifications/:nid/', isAdminLoggedIn, onlyAdmi
 router.post('/admin/admin.clients/findUser', isAdminLoggedIn, onlyAdmin, async(req, res) => {
     const admin = await Users.findById(req.user.id);
     const {findUser} = req.body
-    const client = await Users.findOne({username: findUser});
+    const client = await Users.findOne({email: findUser});
     if (client) {
         res.redirect(`/admin/admin.clients/${client.id}`)
     } else {
-        req.flash('error', 'No user with given username found!')
+        req.flash('error', 'No user with given email found!')
         res.redirect('/admin/admin.clients')
     }
 });
+
 
 router.get('/admin/admin.verificationrequests', isAdminLoggedIn, onlyAdmin, async(req, res) => {
     const admin = await Users.findById(req.user.id);

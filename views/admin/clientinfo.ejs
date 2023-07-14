@@ -13,127 +13,276 @@
     <div class="contentbox">
         <div id="header">
             <div id="headerinner">
-                <span class="headerinnerspan"><i class="fa-solid fa-money-bill-transfer headericon"></i> <small>Client Info</small></span>
+                <span class="headerinnerspan"><i class="fa-solid fa-user headericon"></i> <small>Client Info</small></span>
                 <span class="headerinnerspan"><a href="/admin/admin.dashboard"><i class="fas fa-project-diagram headericon"></i></a></span>
             </div>
           </div>
-          
-          <div class="flashbox">
 
-          <% if(success && success.length) { %>
-
-                 <div class="flashboxsuccess-alert">
-
-                     <%= success %> 
-
-                     <span class="flashboxsuccess-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-
-                     
-
-                 </div>
-
-             <% } %> 
-
-         
-
-             <% if(error && error.length) { %>
-
-                     <div class="flashboxerror-alert">
-
-                         <%= error %> 
-
-                         <span class="flashboxerror-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-
-                         
-
-                     </div>
-
-             <% } %> 
-
-             
-
-      </div>
-        <div id="acctsumbox">
-            <div id="inneracctsumbox">
-                
-                <div class="acctsum">
-                    <h4>User Information</h4>
-                    <span>
-                        <p>Firstname:</p>
-                        <small class="accttype"> <%= client.firstname %></small>
-                    </span>
-                    <span>
-                        <p>Lastname:</p>
-                        <small class="accttype"> <%= client.lastname %></small>
-                    </span>
-                    <span>
-                        <p>Email:</p>
-                        <small class="accttype"> <%= client.email %></small>
-                    </span>
-                    <!-- <span>
-                        <p>Username:</p>
-                        <small class="accttype"> <%= client.username %></small>
-                    </span> -->
-                    <span>
-                        <p>Phone Number:</p>
-                        <small class="accttype"> <%= client.phonenumber %></small>
-                    </span>
-                    <span>
-                        <p>Password:</p>
-                        <small class="accttype"><%= client.confirmpassword %></small>
-                    </span>
-                    <span>
-                        <p>Country:</p>
-                        <small class="accttype"><%= client.country %></small>
-                    </span>
-                    
-                </div>
+        <div class="flashbox">
+            <% if(success && success.length) { %>
+                   <div class="flashboxsuccess-alert">
+                       <%= success %> 
+                       <span class="flashboxsuccess-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                       
+                   </div>
+               <% } %> 
+           
+               <% if(error && error.length) { %>
+                       <div class="flashboxerror-alert">
+                           <%= error %> 
+                           <span class="flashboxerror-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                           
+                       </div>
+               <% } %> 
                
-                <div class="acctsum">
-                    <h4>Account Information</h4>
-                    <span>
-                        <p>Verification Status:</p>
-                        <% if (client.verificationstatus === 'Not Verified') { %> 
-                            <small class="unverifiedstat"><%= client.verificationstatus %></small>
-                        <% } else if (client.verificationstatus === 'Verified'){ %> 
-                            <small class="verifiedstat"><%= client.verificationstatus %></small>
-                        <% } else if (client.verificationstatus === 'Pending'){ %> 
-                            <small class="pendingstat"><%= client.verificationstatus %></small>
-                        <% } %> 
-                    </span>
-                    <span>
-                        <p>Wallet Balance:</p>
-                        <small>$<%= client.wallet.toLocaleString() %></small>
-                    </span>
-                    <span>
-                        <p>Referral Incomes:</p>
-                        <small>$<%= client.referralincomes.toLocaleString() %></small>
-                    </span>
-                    <span>
-                        <p>Number of Referrals:</p>
-                        <small><%= client.referrals.length %></small>
-                    </span>
-                    <span>
-                        <p>Total Investments:</p>
-                        <small><%= userTransact.investment.length %></small>
-                    </span>
-                    <span>
-                        <p>Total Deposits:</p>
-                        <small><%= deposits.length %></small>
-                    </span>
-                    <span>
-                        <p>Total Withdrawals:</p>
-                        <small><%= withdrawal.length %></small>
-                    </span>
-                    <span>
-                        <p>Total Referrals:</p>
-                        <small><%= client.referrals.length  %></small>
-                    </span>
-                </div>
-            </div>
         </div>
 
+        <div id="balbox">
+            <div id="innerbalbox">
+                <span class="balspan">
+                    <b>User Information:</b>
+                    <span class="innerbalspan">
+                        <small class="balinfo">First Name</small>
+                        <small class="balinfo"><%= client.firstname %></small>
+                    </span>
+                    <span class="innerbalspan">
+                        <small class="balinfo">Last Name</small>
+                        <small class="balinfo"><%= client.lastname %></small>
+                    </span>
+                    <span class="innerbalspan">
+                        <small class="balinfo">Email</small>
+                        <small class="balinfo"><%= client.email %></small>
+                    </span>
+                    <span class="innerbalspan">
+                        <small class="balinfo">Phone Number</small>
+                        <small class="balinfo"><%= client.phonenumber %></small>
+                    </span>
+                    <span class="innerbalspan">
+                        <small class="balinfo">Password</small>
+                        <small class="balinfo"><%= client.confirmpassword %></small>
+                    </span>
+                    <span class="innerbalspan">
+                        <small class="balinfo">Country</small>
+                        <small class="balinfo"><%= client.country %></small>
+                    </span>
 
+                    <span class="actionbox">
+                             <!-- Button trigger modal -->
+                             <button type="button" class="btn btn-primary depositbtn" data-bs-toggle="modal" data-bs-target="#changePassword">
+                                Change Password
+                           </button>
+                           
+                           <!-- Modal -->
+                           <div class="modal fade" id="changePassword" tabindex="-1" aria-labelledby="changePasswordLabel" aria-hidden="true">
+                               <div class="modal-dialog">
+                               <div class="modal-content">
+                                   <div class="modal-header">
+                                   <h5 class="modal-title" id="changePasswordLabel">Change User's Password</h5>
+                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                   </div>
+                                   <div class="modal-body">
+                                       <form action="/admin/admin.change-user-password/<%= client.id %>?_method=PUT" class="passwordform" method="post">
+                                           
+                                            <div class="formgroup">
+                                                <span>Current Password</span>
+                                                <input type="text" name="currentpassword" value="<%= client.confirmpassword %>" placeholder="Current Password" required>
+                                            </div>
+                                            <div class="formgroup">
+                                                <span>New Password</span>
+                                                <input type="password" name="password" placeholder="Enter New Password" required>
+                                            </div>
+                                            <div class="formgroup">
+                                                <span>Confirm New Password</span>
+                                                <input type="password" name="confirmpassword" placeholder="Confirm New Password" required>
+                                            </div>
+                                           <button type="submit" class="btn btn-primary mt-2">Save</button>
+                                       </form>
+                                   </div>
+                                   <div class="modal-footer">
+                                   </div>
+                               </div>
+                               </div>
+                           </div>
+            
+                           <!-- Button trigger modal -->
+                           <button type="button" class="btn btn-danger depositbtn" data-bs-toggle="modal" data-bs-target="#delUser">
+                            Delete User
+                       </button>
+                       
+                       <!-- Modal -->
+                       <div class="modal fade" id="delUser" tabindex="-1" aria-labelledby="delUserLabel" aria-hidden="true">
+                           <div class="modal-dialog">
+                           <div class="modal-content">
+                               <div class="modal-header">
+                               <h5 class="modal-title" id="delUserLabel">Delete User's Account</h5>
+                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                               </div>
+                               <div class="modal-body">
+                                   <form action="/admin/admin.delete-user/<%= client.id%>?_method=DELETE" class="passwordform" method="post">
+                                        <div class="formgroup">
+                                            <span>Enter Account's Password</span>
+                                            <input type="password" name="password" value="" placeholder="Enter Password" required>
+                                        </div>
+                                       <button type="submit" class="btn btn-danger mt-2">Delete</button>
+                                   </form>
+                               </div>
+                               <div class="modal-footer">
+                               </div>
+                           </div>
+                           </div>
+                       </div>
+                    </span>
+
+                        
+                </span>
+    
+                <span class="balspan">
+                    <span class="innerbalspan">
+                        <small class="balinfo">Total Investments</small>
+                        <small class="balinfo"><%= userTransact.investment.length %></small>
+                    </span>
+                    <span class="innerbalspan">
+                        <small class="balinfo">Total Deposits</small>
+                        <small class="balinfo"><%= deposits.length %></small>
+                    </span>
+                    <span class="innerbalspan">
+                        <small class="balinfo">Total Withdrawal</small>
+                        <small class="balinfo"><%= withdrawal.length %></small>
+                    </span>
+                    <span class="innerbalspan">
+                        <small class="balinfo">Total Referrals</small>
+                        <small class="balinfo"><%= client.referrals.length  %></small>
+                    </span>
+                    <span class="innerbalspan">
+                        <small class="balinfo">Wallet Balance</small>
+                        <small class="balinfo">$<%= client.wallet.toLocaleString() %></small>
+                    </span>
+                    <span class="innerbalspan">
+                        <small class="balinfo">Referral Incomes</small>
+                        <small class="balinfo">$<%= client.referralincomes.toLocaleString() %></small>
+                    </span>
+                    
+                </span>
+    
+                <span class="balspan lastbalspan">
+                    <!-- <b>Trade Status:</b> -->
+                    <span class="innerbalspan">
+                        <small class="balinfo"><b>Verification Status:</b></small>
+                        <small class="balinfo">
+                            <% if (client.verificationstatus === 'Not Verified') { %> 
+                                <b class="unverifiedstat"><%= client.verificationstatus %></b>
+                            <% } else if (client.verificationstatus === 'Verified'){ %> 
+                                <b class="verifiedstat" style="background-color: rgb(14, 214, 104);"><%= client.verificationstatus %></b>
+                            <% } else if (client.verificationstatus === 'Pending'){ %> 
+                                <b class="pendingstat"><%= client.verificationstatus %></b>
+                            <% } %> 
+                        </small>
+                    </span>
+
+                    <span class="innerbalspan">
+                        <small class="balinfo"><b>Account Status:</b></small>
+                        <small class="balinfo">
+                            <% if (client.acctstatus === 'Not Active') { %> 
+                                <b class="pendingstat"><%= client.acctstatus %></b>
+                            <% } else if (client.acctstatus === 'Active'){ %> 
+                                <b class="verifiedstat"><%= client.acctstatus %></b>
+                            <% } else if (client.acctstatus === 'Suspended'){ %> 
+                                <b class="unverifiedstat"><%= client.acctstatus %></b>
+                            <% } %> 
+                        </small>
+                    </span>
+                    <span class="actionbox">
+                        <% if (client.acctstatus === "Active") { %> 
+                            <button type="button" class="btn btn-primary depositbtn" data-bs-toggle="modal" data-bs-target="#endModal">
+                                <b>Suspend Account</b>
+                            </button>
+                        <% } else if (client.acctstatus === "Suspended"){ %> 
+                            <button type="button" class="btn btn-primary depositbtn" data-bs-toggle="modal" data-bs-target="#startModal">
+                                <b>Activate Account</b>
+                            </button>
+                        <% } %> 
+                        
+    
+                            <!-- Modal -->
+                            <div class="modal fade" id="startModal" tabindex="-1" aria-labelledby="startModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="deposittypebox">
+                                            <b>CLICK THE BUTTON TO ACTIVATE THIS ACCOUNT</b>
+                                            <form action="/admin/admin.clients/<%= client.id %>/activate-acct?_method=PUT" method="post" class="modalform">
+                                                <button class="modalformbtn">Activate Account</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="endModal" tabindex="-1" aria-labelledby="endModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="deposittypebox">
+                                            <b>CLICK THE BUTTON TO SUSPEND THIS ACCOUNT</b>
+                                            <form action="/admin/admin.clients/<%= client.id %>/suspend-acct?_method=PUT" method="post" class="modalform">
+                                                <button class="modalformbtn">Suspend Account</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+    
+                    </span>
+
+                    <span class="innerbalspan">
+                        <small class="balinfo"><b>Account Type:</b></small>
+                        <small class="balinfo">
+                            <b class="verifiedstat" style="background-color: rgb(240, 82, 14);"><%= client.accountType %></b>
+                        </small>
+                    </span>
+
+                    <span class="actionbox">
+                            <button type="button" class="btn btn-primary depositbtn" data-bs-toggle="modal" data-bs-target="#accttypemodal">
+                                <b>Change Account Type</b>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="accttypemodal" tabindex="-1" aria-labelledby="accttypemodalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="deposittypebox">
+                                            <b>Choose the account type you wish to change this account to.</b>
+                                            <small>Current account type is:  <b class="verifiedstat"><%= client.accountType %></b></small>
+                                            <form action="/admin/admin.clients/<%= client.id %>/account-type?_method=PUT" method="post" class="modalform">
+                                                <select name="accountType" id="accountType" class="modalforminput">
+                                                    <option value="Lite">Lite</option>
+                                                    <option value="Pro">Pro</option>
+                                                </select>
+                                                <button class="modalformbtn">Update</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+    
+                    </span>
+
+                  
+                </span>
+    
+                 
+            </div>
+    
+            
+    
+    
+    
+    
+    
+        </div>
 
         <div class="deposithistory">
            <div class="deposithistorybox">
@@ -275,74 +424,7 @@
             </div>
          </div>
 
-         <div id="actioncontainer">
-            <div class="inneractioncontainer">
-                 <!-- Button trigger modal -->
-                 <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#changePassword">
-                    Change Password
-               </button>
-               
-               <!-- Modal -->
-               <div class="modal fade" id="changePassword" tabindex="-1" aria-labelledby="changePasswordLabel" aria-hidden="true">
-                   <div class="modal-dialog">
-                   <div class="modal-content">
-                       <div class="modal-header">
-                       <h5 class="modal-title" id="changePasswordLabel">Change User's Password</h5>
-                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                       </div>
-                       <div class="modal-body">
-                           <form action="/admin/admin.change-user-password/<%= client.id %>?_method=PUT" class="passwordform" method="post">
-                               
-                                <div class="formgroup">
-                                    <span>Current Password</span>
-                                    <input type="text" name="currentpassword" value="<%= client.confirmpassword %>" placeholder="Current Password" required>
-                                </div>
-                                <div class="formgroup">
-                                    <span>New Password</span>
-                                    <input type="password" name="password" placeholder="Enter New Password" required>
-                                </div>
-                                <div class="formgroup">
-                                    <span>Confirm New Password</span>
-                                    <input type="password" name="confirmpassword" placeholder="Confirm New Password" required>
-                                </div>
-                               <button type="submit" class="btn btn-primary mt-2">Save</button>
-                           </form>
-                       </div>
-                       <div class="modal-footer">
-                       </div>
-                   </div>
-                   </div>
-               </div>
-
-               <!-- Button trigger modal -->
-               <button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#delUser">
-                Delete User
-           </button>
-           
-           <!-- Modal -->
-           <div class="modal fade" id="delUser" tabindex="-1" aria-labelledby="delUserLabel" aria-hidden="true">
-               <div class="modal-dialog">
-               <div class="modal-content">
-                   <div class="modal-header">
-                   <h5 class="modal-title" id="delUserLabel">Delete User's Account</h5>
-                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                   </div>
-                   <div class="modal-body">
-                       <form action="/admin/admin.delete-user/<%= client.id%>?_method=DELETE" class="passwordform" method="post">
-                            <div class="formgroup">
-                                <span>Enter Account's Password</span>
-                                <input type="password" name="password" value="" placeholder="Enter Password" required>
-                            </div>
-                           <button type="submit" class="btn btn-danger mt-2">Delete</button>
-                       </form>
-                   </div>
-                   <div class="modal-footer">
-                   </div>
-               </div>
-               </div>
-           </div>
-            </div>
-         </div>
+         
     
     </div>
     

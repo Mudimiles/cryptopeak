@@ -49,6 +49,10 @@ const onlyClient = async(req, res, next) => {
     if (user.role !== 'client') {
         req.flash('error', 'You do not have permission to access this route!')
         return res.redirect('/')
+    } else if (user.acctstatus === 'Suspended') {
+        req.logout();
+        req.flash("error", "Your account was suspended! Please contact your account's manager.")
+        return res.redirect('/login')
     } 
     next();
 }

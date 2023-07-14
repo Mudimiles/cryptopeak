@@ -96,14 +96,13 @@ body {
 .tablecontainer {
     width: 100%;
     overflow-x: auto;
-    font-size: 0.85em;
 }
 
 .historytable {
     border-collapse: collapse;
     border: none;
     width: 100%;
-    font-size:1em;
+    font-size: 0.8em;
 }
 
 

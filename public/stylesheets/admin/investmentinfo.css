@@ -157,6 +157,68 @@ body {
 }
 
 .acctsum {
+    width: 45%;
+    /* padding: 10px; */
+    /* border: 1.4px solid orange; */
+    /* border-radius: 10px; */
+    /* background-color: rgba(26, 25, 25, 0.322); */
+    /* margin: 5px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+
+    padding: 20px;
+    color: var( --foreground);
+    background-color: var( --clr-borderBoxColor);
+    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 20%), 0 11px 6px -7px rgba(0, 0, 0, 20%);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 20%), 0 11px 6px -7px rgba(0, 0, 0, 20%);
+    border-radius: 5px;
+    margin: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.acctsum span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+
+.acctsum p {
+    margin: 0;
+    padding: 0;
+}
+
+.accttype {
+    padding: 4px 20px;
+    border-radius: 4px;
+    background-color: orange;
+}
+
+.unverifiedstat {
+    padding: 4px 10px;
+    border-radius: 4px;
+    background-color: rgb(207, 22, 8);
+    color: white;
+}
+
+.verifiedstat {
+    padding: 4px 10px;
+    border-radius: 4px;
+    background-color: rgb(7, 146, 211);
+    color: white;
+}
+
+.pendingstat {
+    padding: 4px 10px;
+    border-radius: 4px;
+    background-color: rgb(72, 155, 83);
+    color: white;
+}
+
+/* .acctsum {
     width: 400px;
     padding: 10px 20px;
     border: 1.4px solid orange;
@@ -199,7 +261,7 @@ body {
     padding: 4px 10px;
     border-radius: 4px;
     background-color: rgb(72, 155, 83);
-}
+} */
 
 @media (max-width:900px) {
     #inneracctsumbox {

@@ -109,17 +109,16 @@
         </div>
     <% } %> 
 
-
-
     <div id="acctsumbox">
         <div id="btcwidget">
             <%- include('../partials/darkbtcwidget')%>
         </div>
 
         <div class="dashboardboxcontainer">
-            <div class="dashboardboxes">
+            <div class="dashboardboxes" style="background-color:#2980b9;">
                 <span class="dashboardboxes-span1">
-                    <img src="/img/wallet.png" alt="" class="dashboardboxes-iconimg">
+                    <i class="fas fa-wallet dashboardboxes-iconimg"></i>
+                    <!-- <img src="/img/wallet.png" alt="" class="dashboardboxes-iconimg"> -->
                     <span class="dashboardboxes-span2">
                         <p>
                             <% if (user.wallet === 0) { %> 
@@ -133,25 +132,27 @@
                 </span>
                 <img src="/img/graph1.png" alt="" class="dashboardbox-graphimg">
             </div>
-            <div class="dashboardboxes">
+            <div class="dashboardboxes" style="background-color:#c52f1e;">
                 <span class="dashboardboxes-span1">
-                    <img src="/img/income.png" alt="" class="dashboardboxes-iconimg">
+                    <i class="fas fa-money-bill-wave dashboardboxes-iconimg"></i>
+                    <!-- <img src="/img/income.png" alt="" class="dashboardboxes-iconimg"> -->
                     <span class="dashboardboxes-span2">
                         <p>
                             <% if (user.totalprofits === 0) { %> 
                                 <small>$0.00</small>
                             <% } else { %> 
                                 <small>$<%= user.totalprofits.toLocaleString() %></small>
-                            <% } %> 
+                            <% } %>
                         </p>
                         <small>Total Income</small>
                     </span>
                 </span>
                 <img src="/img/graph2.png" alt="" class="dashboardbox-graphimg">
             </div>
-            <div class="dashboardboxes">
+            <div class="dashboardboxes" style="background-color:#f39c12;">
                 <span class="dashboardboxes-span1">
-                    <img src="/img/rate.png" alt="" class="dashboardboxes-iconimg">
+                    <i class="fas fa-chart-line dashboardboxes-iconimg"></i>
+                    <!-- <img src="/img/rate.png" alt="" class="dashboardboxes-iconimg"> -->
                     <span class="dashboardboxes-span2">
                         <p>
                             <% if (user.referralincomes === 0) { %> 
@@ -165,22 +166,22 @@
                 </span>
                 <img src="/img/graph3.png" alt="" class="dashboardbox-graphimg">
             </div>
-            <div class="dashboardboxes">
+            <div class="dashboardboxes" style="background-color:#8c1fbb;">
                 <span class="dashboardboxes-span1">
-                    <img src="/img/NOT.png" alt="" class="dashboardboxes-iconimg">
+                    <i class="fas fa-bars dashboardboxes-iconimg"></i>
+                    <!-- <img src="/img/NOT.png" alt="" class="dashboardboxes-iconimg"> -->
                     <span class="dashboardboxes-span2">
                         <p>
                             <small><%= user.investment.length %> </small>
                         </p>
-                        <small>Total Miners</small>
+                        <small>Number of Trades</small>
                     </span>
                 </span>
                 <img src="/img/graph4.png" alt="" class="dashboardbox-graphimg">
             </div>
         </div>
-
-     
     </div>
+
 
     <div id="activitybox">
         <div id="inneractivitybox">

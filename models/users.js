@@ -55,7 +55,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         default: 'Not Active',
-        enum: ['Not Active', 'Active']
+        enum: ['Not Active', 'Active', 'Suspended']
     },
     verificationdocument: [ImageSchema],
     passport: [ImageSchema],
