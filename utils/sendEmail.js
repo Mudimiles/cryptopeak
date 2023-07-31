@@ -349,3 +349,79 @@ module.exports.endInvestmentMail = async (email, subject, username, packagetype,
         console.log(error, "email not sent");
     }
 };
+
+module.exports.suspendAcctMail = async (email, subject, username) => {
+    try {
+        const transporter = nodemailer.createTransport({
+            host: process.env.HOST,
+            service: process.env.SERVICE,
+            port: 587,
+            secure: true,
+            auth: {
+                user: process.env.USER,
+                pass: process.env.PASS,
+            },
+        });
+
+        ejs.renderFile("views/mail/suspendacctmail.ejs", {subject: subject, username: username},function (err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                var mainOptions = {
+                    from: process.env.CUSTOMMAIL,
+                    to: email,
+                    subject: subject,
+                    html: data
+                };
+                console.log("html data ======================>", mainOptions.html);
+                transporter.sendMail(mainOptions, function (err, info) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log('Message sent: ' + info.response);
+                    }
+                });
+            }
+            });
+    } catch (error) {
+        console.log(error, "email not sent");
+    }
+};
+
+module.exports.activateAcctMail = async (email, subject, username) => {
+    try {
+        const transporter = nodemailer.createTransport({
+            host: process.env.HOST,
+            service: process.env.SERVICE,
+            port: 587,
+            secure: true,
+            auth: {
+                user: process.env.USER,
+                pass: process.env.PASS,
+            },
+        });
+
+        ejs.renderFile("views/mail/acctverifiedmail.ejs", {subject: subject, username: username},function (err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                var mainOptions = {
+                    from: process.env.CUSTOMMAIL,
+                    to: email,
+                    subject: subject,
+                    html: data
+                };
+                console.log("html data ======================>", mainOptions.html);
+                transporter.sendMail(mainOptions, function (err, info) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log('Message sent: ' + info.response);
+                    }
+                });
+            }
+            });
+    } catch (error) {
+        console.log(error, "email not sent");
+    }
+};

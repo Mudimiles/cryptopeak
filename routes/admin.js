@@ -9,7 +9,7 @@ const Depositmethods = require('../models/depositmethod');
 const InvestmentPlans = require('../models/investmentplans');
 const Referral = require('../models/referral');
 const passport = require('passport');
-const {sendEmail, welcomeMail, emailActMail, passwordResetMail, verifyMail, acctVerifiedMail, depositMail, declinedepositMail,openInvestmentMail, endInvestmentMail} = require("../utils/sendEmail");
+const {sendEmail, welcomeMail, emailActMail, passwordResetMail, verifyMail, acctVerifiedMail, depositMail, declinedepositMail, openInvestmentMail, endInvestmentMail, suspendAcctMail, activateAcctMail} = require("../utils/sendEmail");
 const nodemailer = require("nodemailer");
 const fs = require("fs");
 const ejs = require("ejs");
@@ -235,6 +235,8 @@ router.put('/admin/admin.clients/:id/suspend-acct', isAdminLoggedIn, onlyAdmin, 
     const id = req.params.id;
     const user = await Users.findById(id)
     await user.updateOne({acctstatus: 'Suspended'}, { runValidators: true, new: true });
+    const subject = 'Account Suspended';
+    await suspendAcctMail(user.email, subject, user.firstname);
     req.flash('success', 'Account Suspended.')
     res.redirect(`/admin/admin.clients/${id}`)
 });
@@ -255,6 +257,8 @@ router.put('/admin/admin.clients/:id/activate-acct', isAdminLoggedIn, onlyAdmin,
     const id = req.params.id;
     const user = await Users.findById(id)
     await user.updateOne({acctstatus: 'Active'}, { runValidators: true, new: true });
+    const subject = 'Account Activated';
+    await activateAcctMail(user.email, subject, user.firstname);
     req.flash('success', 'Account Activated.')
     res.redirect(`/admin/admin.clients/${id}`)
 });
@@ -309,7 +313,7 @@ router.put('/admin/admin.verificationrequests/:id', isAdminLoggedIn, onlyAdmin, 
     const id = req.params.id; 
     const user = await Users.findByIdAndUpdate(id, {verificationstatus: 'Verified', acctstatus: 'Active'}, { runValidators: true, new: true });
     const subject = 'USER VERIFICATION';
-    await acctVerifiedMail(user.email, subject, user.username);
+    await acctVerifiedMail(user.email, subject, user.firstname);
     req.flash('success', 'Successfully Verified Client!')
     res.redirect('/admin/admin.verificationrequests')
 });
