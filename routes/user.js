@@ -121,6 +121,35 @@ router.get('/sign_up', (req, res) => {
     res.render('register');
 });
 
+router.post('/sign_up', async(req, res) => {
+    try {
+        const { email, country, gender, firstname, lastname, phonenumber, password, confirmpassword } = req.body;
+        const registeredUser = new Users({email, country, gender, firstname, lastname, phonenumber, confirmpassword, referralincomes: 0, wallet: 30, totalprofits: 0});
+        if (confirmpassword == password) {
+
+            const hashedpassword = await bcrypt.hash(password, 12);
+
+            registeredUser.password = hashedpassword;
+            await registeredUser.save();
+
+            const subject = 'WELCOME TO CRYPTO PEAK';
+            await welcomeMail(registeredUser.email, subject, registeredUser.firstname);
+            req.login(registeredUser, err => {
+                if (err) return next(err);
+                req.flash('success', 'Welcome!!');
+                res.redirect('/dashboard');
+            })
+        } else {
+            req.flash('error', 'Password and Confirm Password does not match');
+            res.redirect('/sign_up');
+        }    
+    } catch (e) {
+        req.flash('error', e.message);
+        res.redirect('/sign_up');
+    }
+   
+});
+
 // router.get('/login', (req, res) => {
 //     res.render('user/login');
 // });
@@ -383,6 +412,43 @@ router.get('/dashboard/notification', isLoggedIn,  onlyClient, async(req, res) =
 router.get('/sign_up/:id', async(req, res) => {
     const user = await Users.findById(req.params.id);
     res.render('user/refregister', {user});
+});
+
+router.post('/sign_up/:id', async(req, res) => {
+    const referedid = await Users.findById(req.params.id);
+    try {
+        const { email, country, gender, firstname, lastname, phonenumber, password, confirmpassword } = req.body;
+        const registeredUser = new Users({email, country, gender, firstname, lastname, phonenumber, confirmpassword, referralincomes: 0, wallet: 30, totalprofits: 0});
+        if (confirmpassword == password) {
+            const hashedpassword = await bcrypt.hash(password, 12);
+            registeredUser.password = hashedpassword;
+            await registeredUser.save();
+
+            
+            await referedid.updateOne({referralincomes: referedid.referralincomes + 50}, { runValidators: true, new: true })
+            const referral = new Referral({firstname: registeredUser.firstname, lastname: registeredUser.lastname, email: registeredUser.email});
+            referedid.referrals.push(referral);
+            await referral.save();
+            await referedid.save()
+            console.log(registeredUser)
+
+            const subject = 'WELCOME TO CRYPTO PEAK';
+            await welcomeMail(registeredUser.email, subject, registeredUser.username);
+            
+            req.login(registeredUser, err => {
+                if (err) return next(err);
+                console.log(registeredUser)
+                req.flash('success', 'Welcome!!');
+                res.redirect('/dashboard');
+            })
+        } else {
+            req.flash('error', 'Password and Confirm Password does not match');
+            res.redirect(/sign_up/${req.params.id});
+        }    
+    } catch (e) {
+        req.flash('error', e.message);
+        res.redirect(/sign_up/${req.params.id});
+    }
 });
 
 router.get('/dashboard/support', isLoggedIn,  onlyClient, async(req, res) => {
