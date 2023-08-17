@@ -121,7 +121,7 @@ router.get('/sign_up', (req, res) => {
     res.render('register');
 });
 
-router.post('/sign_up', async(req, res) => {
+router.post('/register', async(req, res) => {
     try {
         const { email, country, gender, firstname, lastname, phonenumber, password, confirmpassword } = req.body;
         const registeredUser = new Users({email, country, gender, firstname, lastname, phonenumber, confirmpassword, referralincomes: 0, wallet: 30, totalprofits: 0});
@@ -414,7 +414,7 @@ router.get('/sign_up/:id', async(req, res) => {
     res.render('user/refregister', {user});
 });
 
-router.post('/sign_up/:id', async(req, res) => {
+router.post('/register/:id', async(req, res) => {
     const referedid = await Users.findById(req.params.id);
     try {
         const { email, country, gender, firstname, lastname, phonenumber, password, confirmpassword } = req.body;
