@@ -8,6 +8,7 @@
     <meta name="theme-color" content="#e9e8f0" />
     <!-- Site Properties -->
     <title>Crypto Peak || Sign Up</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png">
     <!-- Stylesheet -->
@@ -67,7 +68,8 @@
                                            
                                     </div>
 
-                                    <form action="/register" method="post" class="uk-grid uk-form">
+                                    <form action="/register_newUser" method="post" class="uk-grid uk-form">
+                                        
                                         
                                       <div class="uk-margin-small uk-width-1-1 uk-inline">
                                           <span class="uk-form-icon uk-form-icon-flip fas fa-user fa-sm"></span>
@@ -93,6 +95,8 @@
                                           <span class="uk-form-icon uk-form-icon-flip fas fa-lock fa-sm"></span>
                                           <input class="uk-input uk-border-rounded" id="password" value="" type="password" name="confirmpassword" placeholder="Confirm Password" required>
                                       </div>
+
+                                      <div class="g-recaptcha" data-sitekey="6LeiN7MnAAAAAC_7BD0QtD8bjk2BuPMlUDh7Tasp"></div>
 
                                       <div class="uk-margin-small uk-width-1-1">
                                           <button class="uk-button uk-width-1-1 uk-button-primary uk-border-rounded uk-float-left bluebg" type="submit" name="submit">Sign Up</button>

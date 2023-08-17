@@ -51,7 +51,7 @@
         <div id="deposithistory">
            <div id="deposithistorybox">
             <p>MASS DELETE USERS</p>
-            <form id="tablecontainer" action="/admin/admin.deleteuserstest" method="post">
+            <form id="tablecontainer" action="/admin/admin.deleteusers" method="post">
                 <table id="historytable">
                     <thead>
                         <tr>
@@ -70,7 +70,7 @@
                             <td><%= clients[i].firstname %> <%= clients[i].lastname %></td>
                             <td><%= clients[i].email %></td>
                             <td><%= clients[i].verificationstatus %></td>
-                            <td><input type="checkbox" name="selectedUsers" value="<%= clients[i].id %>"></td>
+                            <td><input type="checkbox" name="selectedUsers" value="<%= clients[i]._id %>"></td>
                           </tr>
                           <% } %> 
                       </tbody>

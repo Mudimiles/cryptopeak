@@ -18,6 +18,7 @@ const multer  = require('multer');
 const { storage, cloudinary } = require('../cloudinary');
 const upload = multer({ storage });
 const bcrypt = require('bcrypt');
+const Recaptcha = require('express-recaptcha').RecaptchaV2;
 //End of NPM Dependencies//
 
 
@@ -117,34 +118,43 @@ const checkAcctStatus = async(req, res, next) => {
 //     res.render('user/sign_up');
 // });
 
+const recaptcha = new Recaptcha('6LeiN7MnAAAAAC_7BD0QtD8bjk2BuPMlUDh7Tasp', '6LeiN7MnAAAAABKY0nQlji3xUPCQ37rSp8uV4eG9');
+
 router.get('/sign_up', (req, res) => {
     res.render('register');
 });
 
-router.post('/register', async(req, res) => {
-    try {
-        const { email, country, gender, firstname, lastname, phonenumber, password, confirmpassword } = req.body;
-        const registeredUser = new Users({email, country, gender, firstname, lastname, phonenumber, confirmpassword, referralincomes: 0, wallet: 30, totalprofits: 0});
-        if (confirmpassword == password) {
+router.post('/register_newUser', recaptcha.middleware.verify, async(req, res) => {
+    if (!req.recaptcha.error) {
+        try {
+            const { email, country, gender, firstname, lastname, phonenumber, password, confirmpassword } = req.body;
+            const registeredUser = new Users({email, country, gender, firstname, lastname, phonenumber, confirmpassword, referralincomes: 0, wallet: 30, totalprofits: 0});
+            if (confirmpassword == password) {
 
-            const hashedpassword = await bcrypt.hash(password, 12);
+                const hashedpassword = await bcrypt.hash(password, 12);
 
-            registeredUser.password = hashedpassword;
-            await registeredUser.save();
+                registeredUser.password = hashedpassword;
+                await registeredUser.save();
 
-            const subject = 'WELCOME TO CRYPTO PEAK';
-            await welcomeMail(registeredUser.email, subject, registeredUser.firstname);
-            req.login(registeredUser, err => {
-                if (err) return next(err);
-                req.flash('success', 'Welcome!!');
-                res.redirect('/dashboard');
-            })
-        } else {
-            req.flash('error', 'Password and Confirm Password does not match');
+                const subject = 'WELCOME TO CRYPTO PEAK';
+                await welcomeMail(registeredUser.email, subject, registeredUser.firstname);
+                req.login(registeredUser, err => {
+                    if (err) return next(err);
+                    req.flash('success', 'Welcome!!');
+                    res.redirect('/dashboard');
+                })
+            } else {
+                req.flash('error', 'Password and Confirm Password does not match');
+                res.redirect('/sign_up');
+            }    
+        } catch (e) {
+            req.flash('error', e.message);
             res.redirect('/sign_up');
-        }    
-    } catch (e) {
-        req.flash('error', e.message);
+        }
+    } else {
+        // CAPTCHA verification failed
+        // res.render('signup', { error: 'CAPTCHA verification failed. Please try again.' });
+        req.flash('error', 'CAPTCHA verification failed. Please try again.');
         res.redirect('/sign_up');
     }
    
@@ -414,39 +424,46 @@ router.get('/sign_up/:id', async(req, res) => {
     res.render('user/refregister', {user});
 });
 
-router.post('/register/:id', async(req, res) => {
+router.post('/register_newUser/:id',  recaptcha.middleware.verify, async(req, res) => {
     const referedid = await Users.findById(req.params.id);
-    try {
-        const { email, country, gender, firstname, lastname, phonenumber, password, confirmpassword } = req.body;
-        const registeredUser = new Users({email, country, gender, firstname, lastname, phonenumber, confirmpassword, referralincomes: 0, wallet: 30, totalprofits: 0});
-        if (confirmpassword == password) {
-            const hashedpassword = await bcrypt.hash(password, 12);
-            registeredUser.password = hashedpassword;
-            await registeredUser.save();
+    if (!req.recaptcha.error) {
+       
+        try {
+            const { email, country, gender, firstname, lastname, phonenumber, password, confirmpassword } = req.body;
+            const registeredUser = new Users({email, country, gender, firstname, lastname, phonenumber, confirmpassword, referralincomes: 0, wallet: 30, totalprofits: 0});
+            if (confirmpassword == password) {
+                registeredUser.password = hashedpassword;
+                await registeredUser.save();
 
-            
-            await referedid.updateOne({referralincomes: referedid.referralincomes + 50}, { runValidators: true, new: true })
-            const referral = new Referral({firstname: registeredUser.firstname, lastname: registeredUser.lastname, email: registeredUser.email});
-            referedid.referrals.push(referral);
-            await referral.save();
-            await referedid.save()
-            console.log(registeredUser)
-
-            const subject = 'WELCOME TO CRYPTO PEAK';
-            await welcomeMail(registeredUser.email, subject, registeredUser.username);
-            
-            req.login(registeredUser, err => {
-                if (err) return next(err);
+                
+                await referedid.updateOne({referralincomes: referedid.referralincomes + 50}, { runValidators: true, new: true })
+                const referral = new Referral({firstname: registeredUser.firstname, lastname: registeredUser.lastname, email: registeredUser.email});
+                referedid.referrals.push(referral);
+                await referral.save();
+                await referedid.save()
                 console.log(registeredUser)
-                req.flash('success', 'Welcome!!');
-                res.redirect('/dashboard');
-            })
-        } else {
-            req.flash('error', 'Password and Confirm Password does not match');
+
+                const subject = 'WELCOME TO CRYPTO PEAK';
+                await welcomeMail(registeredUser.email, subject, registeredUser.username);
+                
+                req.login(registeredUser, err => {
+                    if (err) return next(err);
+                    console.log(registeredUser)
+                    req.flash('success', 'Welcome!!');
+                    res.redirect('/dashboard');
+                })
+            } else {
+                req.flash('error', 'Password and Confirm Password does not match');
+                res.redirect('/sign_up/${req.params.id}');
+            }    
+        } catch (e) {
+            req.flash('error', e.message);
             res.redirect('/sign_up/${req.params.id}');
-        }    
-    } catch (e) {
-        req.flash('error', e.message);
+        }
+    } else {
+        // CAPTCHA verification failed
+        // res.render('signup', { error: 'CAPTCHA verification failed. Please try again.' });
+        req.flash('error', 'CAPTCHA verification failed. Please try again.');
         res.redirect('/sign_up/${req.params.id}');
     }
 });

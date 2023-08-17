@@ -17,6 +17,7 @@ const multer  = require('multer');
 const { storage, cloudinary } = require('../cloudinary');
 const upload = multer({ storage });
 const bcrypt = require('bcrypt');
+const ObjectId = require('mongodb').ObjectId;
 
 
 const isAdminLoggedIn = (req, res, next) => {
@@ -165,15 +166,22 @@ router.get('/admin/admin.deleteusers', isAdminLoggedIn, onlyAdmin, async(req, re
 
 router.post('/admin/admin.deleteusers', async (req, res) => {
     const admin = await Users.findById(req.user.id);
+    const users = await Users.find({role: 'client'}).sort({firstname: 1});;
     const selectedUsers = req.body.selectedUsers;
   
     try {
-      if (selectedUsers && selectedUsers.length > 0) {
+        if (!Array.isArray(selectedUsers)) {
+            selectedUsers = [selectedUsers]; // Wrap the value in an array
+          }
+
+      if (selectedUsers.length > 0) {
+
         // Convert selectedUsers array to MongoDB ObjectIds
         const userIdsToDelete = selectedUsers.map(id => new ObjectId(id));
   
         // Delete selected users from MongoDB
-        await user.deleteMany({ _id: { $in: userIdsToDelete } });
+        // await users.deleteMany({ _id: { $in: userIdsToDelete } });
+        await Users.deleteMany({ _id: { $in: userIdsToDelete } });
         req.flash('success', 'Users deleted!')
         res.redirect('/admin/admin.deleteusers'); // Redirect to user list page after deletion
       } else {
@@ -193,7 +201,11 @@ router.post('/admin/admin.deleteusers', async (req, res) => {
     const selectedUsers = req.body.selectedUsers;
   
     try {
-      if (selectedUsers && selectedUsers.length > 0) {
+        if (!Array.isArray(selectedUsers)) {
+            selectedUsers = [selectedUsers]; // Wrap the value in an array
+          }
+
+      if (selectedUsers.length > 0) {
         // Convert selectedUsers array to MongoDB ObjectIds
         const userIdsToDelete = selectedUsers.map(id => new ObjectId(id));
   
@@ -204,8 +216,10 @@ router.post('/admin/admin.deleteusers', async (req, res) => {
        
       }
     } catch (error) {
+        // Handle error (display an error message or log it)
+        console.error(error);
         res.send('Unable to delete users!')
-    }
+      }
   });
 
 router.get('/admin/admin.clients', isAdminLoggedIn, onlyAdmin, async(req, res) => {
