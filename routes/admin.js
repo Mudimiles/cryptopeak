@@ -163,7 +163,7 @@ router.get('/admin/admin.deleteusers', isAdminLoggedIn, onlyAdmin, async(req, re
     res.render('admin/deleteusers', {admin, clients});
 });
 
-app.post('/admin/admin.deleteusers', async (req, res) => {
+router.post('/admin/admin.deleteusers', async (req, res) => {
     const admin = await Users.findById(req.user.id);
     const selectedUsers = req.body.selectedUsers;
   
@@ -188,7 +188,7 @@ app.post('/admin/admin.deleteusers', async (req, res) => {
     }
   });
 
-  app.post('/admin/admin.deleteuserstest', async (req, res) => {
+  router.post('/admin/admin.deleteuserstest', async (req, res) => {
     const admin = await Users.findById(req.user.id);
     const selectedUsers = req.body.selectedUsers;
   
