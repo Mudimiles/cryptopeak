@@ -157,6 +157,57 @@ router.put('/admin/admin.profile/:id', isAdminLoggedIn, onlyAdmin, async(req, re
     res.redirect(`/admin/admin.profile`);
 });
 
+router.get('/admin/admin.deleteusers', isAdminLoggedIn, onlyAdmin, async(req, res) => {
+    const admin = await Users.findById(req.user.id);
+    const clients = await Users.find({role: 'client'}).sort({firstname: 1});;
+    res.render('admin/deleteusers', {admin, clients});
+});
+
+app.post('/admin/admin.deleteusers', async (req, res) => {
+    const admin = await Users.findById(req.user.id);
+    const selectedUsers = req.body.selectedUsers;
+  
+    try {
+      if (selectedUsers && selectedUsers.length > 0) {
+        // Convert selectedUsers array to MongoDB ObjectIds
+        const userIdsToDelete = selectedUsers.map(id => new ObjectId(id));
+  
+        // Delete selected users from MongoDB
+        await user.deleteMany({ _id: { $in: userIdsToDelete } });
+        req.flash('success', 'Users deleted!')
+        res.redirect('/admin/admin.deleteusers'); // Redirect to user list page after deletion
+      } else {
+        req.flash('error', 'No selected users!')
+        res.redirect('/admin/admin.deleteusers'); // Handle case when no users are selected
+      }
+    } catch (error) {
+      // Handle error (display an error message or log it)
+      console.error(error);
+      req.flash('error', 'Users not deleted!')
+      res.redirect('/admin/admin.deleteusers');
+    }
+  });
+
+  app.post('/admin/admin.deleteuserstest', async (req, res) => {
+    const admin = await Users.findById(req.user.id);
+    const selectedUsers = req.body.selectedUsers;
+  
+    try {
+      if (selectedUsers && selectedUsers.length > 0) {
+        // Convert selectedUsers array to MongoDB ObjectIds
+        const userIdsToDelete = selectedUsers.map(id => new ObjectId(id));
+  
+        // Delete selected users from MongoDB
+        res.send(userIdsToDelete)
+      } else {
+        res.send('No selected users!')
+       
+      }
+    } catch (error) {
+        res.send('Unable to delete users!')
+    }
+  });
+
 router.get('/admin/admin.clients', isAdminLoggedIn, onlyAdmin, async(req, res) => {
     const admin = await Users.findById(req.user.id);
     const clients = await Users.find({role: 'client'}).sort({firstname: 1});;
